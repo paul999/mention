@@ -1,0 +1,34 @@
+imports:
+    - { resource: parameters.yml }
+
+services:
+    paul999.mention.controller:
+        class: paul999\mention\controller\main
+        arguments:
+            - '@config'
+            - '@controller.helper'
+            - '@template'
+            - '@user'
+
+    paul999.mention.service:
+        class: paul999\mention\service
+        arguments:
+            - '@user'
+            - '%paul999.mention.tables.demo_table%'
+
+    paul999.mention.listener:
+        class: paul999\mention\event\main_listener
+        arguments:
+            - '@controller.helper'
+            - '@template'
+        tags:
+            - { name: event.listener }
+
+    paul999.mention.notification.type.demo:
+        class: paul999\mention\notification\type\demo
+        shared: false # service MUST not be shared for this to work!
+        parent: notification.type.base
+        calls:
+            - [set_controller_helper, ['@controller.helper']]
+        tags:
+            - { name: notification.type }

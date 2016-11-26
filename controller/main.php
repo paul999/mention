@@ -9,52 +9,82 @@
  */
 
 namespace paul999\mention\controller;
+use phpbb\auth\auth;
+use phpbb\config\config;
+use phpbb\controller\helper;
+use phpbb\db\driver\driver_interface;
+use phpbb\exception\http_exception;
+use phpbb\template\template;
+use phpbb\user;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * phpBB mentions main controller.
  */
 class main
 {
-	/* @var \phpbb\config\config */
-	protected $config;
-
-	/* @var \phpbb\controller\helper */
-	protected $helper;
-
-	/* @var \phpbb\template\template */
-	protected $template;
-
-	/* @var \phpbb\user */
+	/**
+     * @var user
+     */
 	protected $user;
 
-	/**
-	 * Constructor
-	 *
-	 * @param \phpbb\config\config		$config
-	 * @param \phpbb\controller\helper	$helper
-	 * @param \phpbb\template\template	$template
-	 * @param \phpbb\user				$user
-	 */
-	public function __construct(\phpbb\config\config $config, \phpbb\controller\helper $helper, \phpbb\template\template $template, \phpbb\user $user)
+    /**
+     * @var driver_interface
+     */
+    private $db;
+
+    /**
+     * @var auth
+     */
+    private $auth;
+
+    /**
+     * Constructor
+     *
+     * @param user $user
+     * @param driver_interface $db
+     * @param auth $auth
+     */
+	public function __construct(user $user, driver_interface $db, auth $auth)
 	{
-		$this->config = $config;
-		$this->helper = $helper;
-		$this->template = $template;
 		$this->user = $user;
-	}
+        $this->db = $db;
+        $this->auth = $auth;
+    }
 
 	/**
-	 * Demo controller for route /demo/{name}
+	 * get a list of users matching on a username (Minimal 3 chars)
 	 *
 	 * @param string $name
 	 *
 	 * @return \Symfony\Component\HttpFoundation\Response A Symfony Response object
 	 */
-	public function handle($name)
+	public function handle($name) : Response
 	{
-		$l_message = !$this->config['acme_demo_goodbye'] ? 'DEMO_HELLO' : 'DEMO_GOODBYE';
-		$this->template->assign_var('DEMO_MESSAGE', $this->user->lang($l_message, $name));
+	    if ($this->user->data['user_id'] == ANONYMOUS || $this->user->data['is_bot'] || !$this->auth->acl_get('u_can_mention'))
+        {
+            throw new http_exception(401);
+        }
 
-		return $this->helper->render('demo_body.html', $name);
+        if (strlen($name) < 3)
+        {
+            return new JsonResponse([]);
+        }
+
+        $sql = 'SELECT user_id, username 
+                    FROM ' . USERS_TABLE . ' 
+                    WHERE username_clean ' . $this->db->sql_like_expression($name . $this->db->get_any_char());
+        $result = $this->db->sql_query($sql);
+        $return = [];
+
+        while ($row = $this->db->sql_fetchrow($result))
+        {
+            $return[] = [
+                'username'  => $row['username'],
+                'userid'    => $row['user_id'],
+            ];
+        }
+        return new JsonResponse($return);
 	}
 }

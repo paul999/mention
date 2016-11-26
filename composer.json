@@ -12,16 +12,12 @@
             "email": "paul@phpbb.com",
             "homepage": "https://www.phpbbextensions.io",
             "role": "developer"
-        },
-        {
-            "name": "paul999",
-            "email": "paul@phpbb.com",
-            "homepage": "https://www.phpbbextensions.io",
-            "role": "developer"
         }
     ],
     "require": {
-        "php": "~7"
+        "php": "~7",
+        "phpbb/phpbb": ">=3.2.0RC1,<3.3.0@dev"
+
     },
     "extra": {
         "display-name": "phpBB mentions",

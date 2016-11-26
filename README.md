@@ -6,6 +6,8 @@ Copy the extension to phpBB/ext/paul999/mention
 
 Go to "ACP" > "Customise" > "Extensions" and enable the "phpBB mentions" extension.
 
+**Please note that this extension requires php 7.0 and phpBB 3.2!**
+
 ## Tests and Continuous Integration
 
 We use Travis-CI as a continuous integration server and phpunit for our unit testing. See more information on the [phpBB development wiki](https://wiki.phpbb.com/Unit_Tests).

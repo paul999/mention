@@ -9,23 +9,25 @@
  */
 
 namespace paul999\mention\notification\type;
+use phpbb\controller\helper;
+use phpbb\notification\type\base;
 
 /**
  * phpBB mentions Notification class.
  */
-class demo extends \phpbb\notification\type\base
+class mention extends base
 {
-	/** @var \phpbb\controller\helper */
+	/** @var helper */
 	protected $helper;
 
 	/**
 	 * Set the controller helper
 	 *
-	 * @param \phpbb\controller\helper $helper
+	 * @param helper $helper
 	 *
 	 * @return void
 	 */
-	public function set_controller_helper(\phpbb\controller\helper $helper)
+	public function set_controller_helper(helper $helper)
 	{
 		$this->helper = $helper;
 	}
@@ -37,7 +39,7 @@ class demo extends \phpbb\notification\type\base
 	 */
 	public function get_type()
 	{
-		return 'paul999.mention.notification.type.demo';
+		return 'paul999.mention.notification.type.mention';
 	}
 
 	/**
@@ -47,7 +49,7 @@ class demo extends \phpbb\notification\type\base
 	 * 					Array of data (including keys 'id', 'lang', and 'group')
 	 */
 	public static $notification_option = array(
-		'lang'	=> 'NOTIFICATION_TYPE_DEMO',
+		'lang'	=> 'NOTIFICATION_TYPE_MENTION',
 	);
 
 	/**
@@ -118,7 +120,7 @@ class demo extends \phpbb\notification\type\base
 	 */
 	public function get_title()
 	{
-		return $this->user->lang('ACME_DEMO_NOTIFICATION');
+		return $this->language->lang('MENTION_MENTION_NOTIFICATION');
 	}
 
 	/**

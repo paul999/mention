@@ -13,8 +13,6 @@ namespace paul999\mention;
 /**
  * phpBB mentions Extension base
  *
- * It is recommended to remove this file from
- * an extension if it is not going to be used.
  */
 class ext extends \phpbb\extension\base
 {
@@ -32,7 +30,7 @@ class ext extends \phpbb\extension\base
 			case '': // Empty means nothing has run yet
 
 				$phpbb_notifications = $this->container->get('notification_manager');
-				$phpbb_notifications->enable_notifications('dev.dev.notification.type.demo');
+				$phpbb_notifications->enable_notifications('paul999.mention.notification.type.mention');
 				return 'notification';
 
 			break;
@@ -59,7 +57,7 @@ class ext extends \phpbb\extension\base
 			case '': // Empty means nothing has run yet
 
 				$phpbb_notifications = $this->container->get('notification_manager');
-				$phpbb_notifications->disable_notifications('dev.dev.notification.type.demo');
+				$phpbb_notifications->disable_notifications('paul999.mention.notification.type.mention');
 				return 'notification';
 
 			break;
@@ -86,7 +84,7 @@ class ext extends \phpbb\extension\base
 			case '': // Empty means nothing has run yet
 
 				$phpbb_notifications = $this->container->get('notification_manager');
-				$phpbb_notifications->purge_notifications('dev.dev.notification.type.demo');
+				$phpbb_notifications->purge_notifications('paul999.mention.notification.type.mention');
 				return 'notification';
 
 			break;

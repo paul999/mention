@@ -16,31 +16,16 @@ namespace paul999\mention\acp;
 class main_module
 {
 	public $u_action;
+    public $tpl_name;
+    public $page_title;
 
-	public function main($id, $mode)
+    public function main($id, $mode)
 	{
-		global $config, $request, $template, $user;
+        global $phpbb_container, $language;
 
-		$user->add_lang_ext('paul999/mention', 'common');
-		$this->tpl_name = 'acp_demo_body';
-		$this->page_title = $user->lang('ACP_DEMO_TITLE');
-		add_form_key('acme/demo');
+		$this->tpl_name = 'mention_body';
+		$this->page_title = $language->lang('ACP_MENTION_TITLE');
 
-		if ($request->is_set_post('submit'))
-		{
-			if (!check_form_key('acme/demo'))
-			{
-				trigger_error('FORM_INVALID');
-			}
-
-			$config->set('acme_demo_goodbye', $request->variable('acme_demo_goodbye', 0));
-
-			trigger_error($user->lang('ACP_DEMO_SETTING_SAVED') . adm_back_link($this->u_action));
-		}
-
-		$template->assign_vars(array(
-			'U_ACTION'				=> $this->u_action,
-			'ACME_DEMO_GOODBYE'		=> $config['acme_demo_goodbye'],
-		));
+        $phpbb_container->get('paul999.mention.admin_controller')->page();
 	}
 }

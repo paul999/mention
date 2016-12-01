@@ -17,20 +17,7 @@ use phpbb\notification\type\base;
  */
 class mention extends base
 {
-	/** @var helper */
-	protected $helper;
 
-	/**
-	 * Set the controller helper
-	 *
-	 * @param helper $helper
-	 *
-	 * @return void
-	 */
-	public function set_controller_helper(helper $helper)
-	{
-		$this->helper = $helper;
-	}
 
 	/**
 	 * Get notification type name
@@ -59,7 +46,7 @@ class mention extends base
 	 */
 	public function is_available()
 	{
-		return false;
+		return true;
 	}
 
 	/**
@@ -130,7 +117,7 @@ class mention extends base
 	 */
 	public function get_url()
 	{
-		return $this->helper->route('paul999_mention_controller', $this->get_data('acme_demo'));
+		return append_sid($this->root_path . 'viewtopic.' . $this->phpEx, 'p=' . $this->data['post_id']);
 	}
 
 	/**

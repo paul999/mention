@@ -24,7 +24,5 @@ services:
         class: paul999\mention\notification\type\demo
         shared: false # service MUST not be shared for this to work!
         parent: notification.type.base
-        calls:
-            - [set_controller_helper, ['@controller.helper']]
         tags:
             - { name: notification.type }

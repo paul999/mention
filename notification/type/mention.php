@@ -86,8 +86,7 @@ class mention extends base
 	 */
 	public function find_users_for_notification($data, $options = array())
 	{
-		// Return an array of users to be notified, storing the user_ids as the array keys
-		return array();
+		return $data['user_ids'];
 	}
 
 	/**

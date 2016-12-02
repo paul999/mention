@@ -2,21 +2,16 @@ services:
     paul999.mention.controller:
         class: paul999\mention\controller\main
         arguments:
-            - '@config'
-            - '@controller.helper'
-            - '@template'
             - '@user'
-
-    paul999.mention.service:
-        class: paul999\mention\service
-        arguments:
-            - '@user'
+            - '@dbal.conn'
+            - '@auth'
 
     paul999.mention.listener:
         class: paul999\mention\event\main_listener
         arguments:
             - '@controller.helper'
             - '@template'
+            - '@notification_manager'
         tags:
             - { name: event.listener }
 

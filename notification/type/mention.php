@@ -9,7 +9,7 @@
  */
 
 namespace paul999\mention\notification\type;
-use phpbb\controller\helper;
+use phpbb\config\config;
 use phpbb\notification\type\base;
 
 /**
@@ -17,7 +17,18 @@ use phpbb\notification\type\base;
  */
 class mention extends base
 {
+    private $config;
 
+    /**
+     * Set the config class
+     *
+     * @param config $config
+     *
+     */
+    public function set_config(config $config)
+    {
+        $this->config = $config;
+    }
 
 	/**
 	 * Get notification type name
@@ -96,7 +107,7 @@ class mention extends base
 	 */
 	public function users_to_query()
 	{
-		return array();
+		return $this->user_ids;
 	}
 
 	/**
@@ -116,7 +127,7 @@ class mention extends base
 	 */
 	public function get_url()
 	{
-		return append_sid($this->root_path . 'viewtopic.' . $this->phpEx, 'p=' . $this->data['post_id']);
+		return append_sid($this->root_path . 'viewtopic.' . $this->phpEx, 'p=' . $this->notification_id);
 	}
 
 	/**
@@ -126,7 +137,7 @@ class mention extends base
 	 */
 	public function get_email_template()
 	{
-		return false;
+		return '@paul999_mention/mention_mail.txt';
 	}
 
 	/**
@@ -136,7 +147,12 @@ class mention extends base
 	 */
 	public function get_email_template_variables()
 	{
-		return array();
+		return [
+		    'USERNAME'          => $this->username,
+            'BOARD_NAME'        => $this->config[''],
+            'U_LINK_TO_TOPIC'   => generate_board_url() . $this->root_path . 'viewtopic.' . $this->phpEx, 'p=' . $this->notification_id,
+            'EMAIL_SIG'         => $this->config[''],
+        ];
 	}
 
 	/**

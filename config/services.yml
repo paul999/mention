@@ -16,8 +16,10 @@ services:
             - { name: event.listener }
 
     paul999.mention.notification.type.demo:
-        class: paul999\mention\notification\type\demo
+        class: paul999\mention\notification\type\mention
         shared: false # service MUST not be shared for this to work!
         parent: notification.type.base
+        calls:
+            - [set_config, ['@config']]
         tags:
             - { name: notification.type }

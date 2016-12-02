@@ -1,0 +1,10 @@
+Subject: You have been mentioned
+
+Hello,
+
+You just have been mentioned by "{USERNAME}" at "{BOARD_NAME}".
+
+To view the post you have been mentioned in use this link:
+{U_LINK_TO_TOPIC}
+
+{EMAIL_SIG}

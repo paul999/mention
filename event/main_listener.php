@@ -17,6 +17,7 @@ use phpbb\controller\helper;
 use phpbb\db\driver\driver;
 use phpbb\notification\manager;
 use phpbb\template\template;
+use phpbb\user;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -24,20 +25,30 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class main_listener implements EventSubscriberInterface
 {
-	/* @var helper */
+	/**
+     * @var helper
+     */
 	protected $helper;
 
-	/* @var template */
+	/**
+     * @var template
+     */
 	protected $template;
 
     /**
      * @var driver
      */
     private $db;
+
     /**
      * @var manager
      */
     private $notification_manager;
+
+    /**
+     * @var user
+     */
+    private $user;
 
     /**
      * Constructor
@@ -46,13 +57,15 @@ class main_listener implements EventSubscriberInterface
      * @param template $template Template object
      * @param driver $db
      * @param manager $notification_manager
+     * @param user $user
      */
-	public function __construct(helper $helper, template $template, driver $db, manager $notification_manager)
+	public function __construct(helper $helper, template $template, driver $db, manager $notification_manager, user $user)
 	{
 		$this->helper = $helper;
 		$this->template = $template;
         $this->db = $db;
         $this->notification_manager = $notification_manager;
+        $this->user = $user;
     }
 
     static public function getSubscribedEvents()
@@ -95,8 +108,9 @@ class main_listener implements EventSubscriberInterface
             }
         }
         $this->notification_manager->add_notifications('paul999.mention.notification.type.mention', array(
-            'user_ids'		=> $mention_data,
+            'user_ids'		    => $mention_data,
             'notification_id'   => $event['data']['post_id'],
+            'username'          => $this->user->data['username'],
         ));
 
 

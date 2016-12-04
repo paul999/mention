@@ -17,7 +17,15 @@ use phpbb\notification\type\base;
  */
 class mention extends base
 {
+    /**
+     * @var config
+     */
     private $config;
+
+    /**
+     * @var \phpbb\user_loader
+     */
+    protected $user_loader;
 
     /**
      * Set the config class
@@ -28,6 +36,11 @@ class mention extends base
     public function set_config(config $config)
     {
         $this->config = $config;
+    }
+
+    public function set_user_loader(\phpbb\user_loader $user_loader)
+    {
+        $this->user_loader = $user_loader;
     }
 
 	/**
@@ -72,7 +85,14 @@ class mention extends base
 		return $data['notification_id'];
 	}
 
-	/**
+	public function get_insert_array()
+    {
+        $data = parent::get_insert_array();
+
+        return $data;
+    }
+
+    /**
 	 * Get the id of the parent
 	 *
 	 * @param array $data The data for the updated rules
@@ -97,7 +117,13 @@ class mention extends base
 	 */
 	public function find_users_for_notification($data, $options = array())
 	{
-		return $data['user_ids'];
+	    $users = [];
+
+	    foreach($options['user_ids'] as $key => $user)
+        {
+            $users[$user] = $user;
+        }
+		return $this->check_user_notification_options($users);
 	}
 
 	/**
@@ -107,7 +133,7 @@ class mention extends base
 	 */
 	public function users_to_query()
 	{
-		return $this->user_ids;
+		return array($this->notification_data['poster_id']);
 	}
 
 	/**
@@ -117,7 +143,7 @@ class mention extends base
 	 */
 	public function get_title()
 	{
-		return $this->language->lang('MENTION_MENTION_NOTIFICATION');
+	    return $this->language->lang('MENTION_MENTION_NOTIFICATION', $this->user_loader->get_username($this->notification_data['poster_id'], 'no_profile'));
 	}
 
 	/**
@@ -127,7 +153,7 @@ class mention extends base
 	 */
 	public function get_url()
 	{
-		return append_sid($this->root_path . 'viewtopic.' . $this->phpEx, 'p=' . $this->notification_id);
+		return append_sid($this->phpbb_root_path . 'viewtopic.' . $this->php_ext, 'p=' . $this->notification_data['post_id'] . '#p' . $this->notification_data['post_id']);
 	}
 
 	/**
@@ -137,7 +163,7 @@ class mention extends base
 	 */
 	public function get_email_template()
 	{
-		return '@paul999_mention/mention_mail.txt';
+		return '@paul999_mention/mention_mail';
 	}
 
 	/**
@@ -150,7 +176,7 @@ class mention extends base
 		return [
 		    'USERNAME'          => $this->username,
             'BOARD_NAME'        => $this->config[''],
-            'U_LINK_TO_TOPIC'   => generate_board_url() . $this->root_path . 'viewtopic.' . $this->phpEx, 'p=' . $this->notification_id,
+            'U_LINK_TO_TOPIC'   => generate_board_url() . 'viewtopic.' . $this->php_ext, 'p=' . $this->notification_data['post_id'] . '#p' .$this->notification_data['post_id'],
             'EMAIL_SIG'         => $this->config[''],
         ];
 	}
@@ -166,7 +192,12 @@ class mention extends base
 	 */
 	public function create_insert_array($data, $pre_create_data = array())
 	{
-		$this->set_data('acme_demo', $data['acme_demo']);
+		$this->set_data('notification_id', $data['notification_id']);
+		$this->set_data('username', $data['username']);
+		$this->set_data('user_ids', $data['user_ids']);
+		$this->set_data('poster_id', (int)$data['poster_id']);
+		$this->set_data('post_id', (int)$data['post_id']);
+
 
 		parent::create_insert_array($data, $pre_create_data);
 	}

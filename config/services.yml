@@ -11,15 +11,18 @@ services:
         arguments:
             - '@controller.helper'
             - '@template'
+            - '@dbal.conn'
             - '@notification_manager'
+            - '@user'
         tags:
             - { name: event.listener }
 
-    paul999.mention.notification.type.demo:
+    paul999.mention.notification.type.mention:
         class: paul999\mention\notification\type\mention
         shared: false # service MUST not be shared for this to work!
         parent: notification.type.base
         calls:
             - [set_config, ['@config']]
+            - [set_user_loader, ['@user_loader']]
         tags:
             - { name: notification.type }

@@ -24,14 +24,14 @@ class install_role extends \phpbb\db\migration\migration
     {
         $data = array();
 
-        if ($this->role_exists('ROLE_FORUM_FULL'))
+        if ($this->role_exists('ROLE_USER_STANDARD'))
         {
-            $data[] = array('permission.permission_set', array('ROLE_FORUM_FULL', 'u_can_mention'));
+            $data[] = array('permission.permission_set', array('ROLE_USER_STANDARD', 'u_can_mention'));
         }
 
-        if ($this->role_exists('ROLE_FORUM_STANDARD'))
+        if ($this->role_exists('ROLE_USER_FULL'))
         {
-            $data[] = array('permission.permission_set', array('ROLE_FORUM_STANDARD', 'u_can_mention'));
+            $data[] = array('permission.permission_set', array('ROLE_USER_FULL', 'u_can_mention'));
         }
 
         return $data;

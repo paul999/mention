@@ -13,6 +13,7 @@ namespace paul999\mention\event;
 /**
  * @ignore
  */
+use phpbb\auth\auth;
 use phpbb\controller\helper;
 use phpbb\db\driver\driver;
 use phpbb\db\driver\driver_interface;
@@ -62,6 +63,11 @@ class main_listener implements EventSubscriberInterface
     private $mention_data;
 
     /**
+     * @var auth
+     */
+    private $auth;
+
+    /**
      * Constructor
      *
      * @param helper $helper Controller helper object
@@ -69,14 +75,16 @@ class main_listener implements EventSubscriberInterface
      * @param driver_interface $db
      * @param manager $notification_manager
      * @param user $user
+     * @param auth $auth
      */
-	public function __construct(helper $helper, template $template, driver_interface $db, manager $notification_manager, user $user)
+	public function __construct(helper $helper, template $template, driver_interface $db, manager $notification_manager, user $user, auth $auth)
 	{
 		$this->helper = $helper;
 		$this->template = $template;
         $this->db = $db;
         $this->notification_manager = $notification_manager;
         $this->user = $user;
+        $this->auth = $auth;
     }
 
     static public function getSubscribedEvents()
@@ -120,7 +128,7 @@ class main_listener implements EventSubscriberInterface
     {
         $handle = ['post', 'reply'];
 
-        if (!in_array($event['mode'], $handle)) {
+        if (!in_array($event['mode'], $handle) || !$this->auth->acl_get('u_can_mention')) {
             return;
         }
 
@@ -145,16 +153,19 @@ class main_listener implements EventSubscriberInterface
     }
     function submit_post($event)
     {
-        $this->notification_manager->add_notifications('paul999.mention.notification.type.mention', [
-            'user_ids'		    => $this->mention_data,
-            'notification_id'   => $event['data']['post_id'],
-            'username'          => $this->user->data['username'],
-            'poster_id'         => $this->user->data['user_id'],
-            'post_id'           => $event['data']['post_id'],
-        ],
-        [
-            'user_ids'		    => $this->mention_data,
-        ]);
+        if (sizeof($this->mention_data))
+        {
+            $this->notification_manager->add_notifications('paul999.mention.notification.type.mention', [
+                'user_ids'		    => $this->mention_data,
+                'notification_id'   => $event['data']['post_id'],
+                'username'          => $this->user->data['username'],
+                'poster_id'         => $this->user->data['user_id'],
+                'post_id'           => $event['data']['post_id'],
+            ],
+            [
+                'user_ids'		    => $this->mention_data,
+            ]);
+        }
         return;
     }
 }

@@ -85,13 +85,6 @@ class mention extends base
 		return $data['notification_id'];
 	}
 
-	public function get_insert_array()
-    {
-        $data = parent::get_insert_array();
-
-        return $data;
-    }
-
     /**
 	 * Get the id of the parent
 	 *

@@ -18,8 +18,12 @@ if (empty($lang) || !is_array($lang))
 	$lang = array();
 }
 
+/**
+ * As there is no proper way of including this file just when the notification is
+ * loaded we need to include it on all pages. Make sure to only include important
+ * language items (That are directly needed by the notification system) in this file.
+ */
 $lang = array_merge($lang, array(
 	'MENTION_MENTION_NOTIFICATION'	=> 'You have been mentioned by %s',
-
     'NOTIFICATION_TYPE_MENTION'     => 'Someone mentioned me'
 ));

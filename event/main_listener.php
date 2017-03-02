@@ -121,6 +121,12 @@ class main_listener implements EventSubscriberInterface
         $event['lang_set_ext'] = $lang_set_ext;
     }
 
+    public function posting($event) {
+        $this->template->assign_vars([
+           'UA_AJAX_MENTION_URL'    => $this->helper->route('paul999_mention_controller'),
+        ]);
+    }
+
     /**
      * @param array $event
      */

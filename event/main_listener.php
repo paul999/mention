@@ -170,8 +170,6 @@ class main_listener implements EventSubscriberInterface
             $this->mention_data[] = (int)$row['user_id'];
         }
         $this->db->sql_freeresult($result);
-
-        $event['data']['message'] = preg_replace($this->regex, '', $event['data']['message']);
     }
     function submit_post($event)
     {

@@ -18,6 +18,8 @@ class version_001 extends \phpbb\db\migration\migration
 		return array(
             '\paul999\mention\migrations\install_permission',
             '\paul999\mention\migrations\install_role',
+            '\paul999\mention\migrations\add_bbcode',
+            '\phpbb\db\migration\data\v32x\v320',
         );
 	}
 

@@ -3,7 +3,7 @@ $(document).ready(function() {
     $('#message').atwho({
         at: "@",
         displayTpl: '@${username}',
-        insertTpl: '[mention]${userid}[/mention]',
+//        insertTpl: '[mention]${userid}[/mention]',
         callbacks: {
             /*
              It function is given, At.js will invoke it if local filter can not find any data
@@ -20,6 +20,9 @@ $(document).ready(function() {
                         callback(data.usernames)
                     });
                 }
+            },
+            tplEval: function (tpl, map) {
+                return "[mention]" + map + "[/mention]";
             }
         }
     });

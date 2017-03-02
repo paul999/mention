@@ -1,5 +1,6 @@
 (function($) {
     $(document).ready(function() {
+        console.log("Loading mention settings");
         $('#message').atwho({
             at: "@",
             displayTpl: '@${username}',

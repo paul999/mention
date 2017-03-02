@@ -2,8 +2,8 @@ $(document).ready(function() {
     console.log("Loading mention settings");
     $('#message').atwho({
         at: "@",
-        displayTpl: '@${username}',
-//        insertTpl: '[mention]${userid}[/mention]',
+        displayTpl: '@${name}',
+        insertTpl: '[mention]${name}[/mention]',
         callbacks: {
             /*
              It function is given, At.js will invoke it if local filter can not find any data
@@ -17,7 +17,8 @@ $(document).ready(function() {
                 }
                 else {
                     $.getJSON(U_AJAX_MENTION_URL, {q: query}, function (data) {
-                        callback(data.usernames)
+                        console.log(data);
+                        callback(data)
                     });
                 }
             },

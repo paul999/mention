@@ -84,11 +84,14 @@ class main
                     FROM ' . USERS_TABLE . ' 
                     WHERE username_clean ' . $this->db->sql_like_expression($name . $this->db->get_any_char());
         $result = $this->db->sql_query($sql);
-        $return = ['usernames' => [],];
+        $return = [];
 
         while ($row = $this->db->sql_fetchrow($result))
         {
-            $return['usernames'][] = $row['username'];
+            $return[] = [
+                'name'  => $row['username'],
+                'id'    => $row['user_id'],
+            ];
         }
         return new JsonResponse($return);
 	}

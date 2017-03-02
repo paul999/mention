@@ -14,6 +14,7 @@ namespace paul999\mention\event;
  * @ignore
  */
 use phpbb\auth\auth;
+use phpbb\config\config;
 use phpbb\controller\helper;
 use phpbb\db\driver\driver;
 use phpbb\db\driver\driver_interface;
@@ -67,6 +68,10 @@ class main_listener implements EventSubscriberInterface
      * @var auth
      */
     private $auth;
+    /**
+     * @var config
+     */
+    private $config;
 
     /**
      * Constructor
@@ -77,8 +82,9 @@ class main_listener implements EventSubscriberInterface
      * @param manager $notification_manager
      * @param user $user
      * @param auth $auth
+     * @param config $config
      */
-	public function __construct(helper $helper, template $template, driver_interface $db, manager $notification_manager, user $user, auth $auth)
+	public function __construct(helper $helper, template $template, driver_interface $db, manager $notification_manager, user $user, auth $auth, config $config)
 	{
 		$this->helper = $helper;
 		$this->template = $template;
@@ -86,6 +92,7 @@ class main_listener implements EventSubscriberInterface
         $this->notification_manager = $notification_manager;
         $this->user = $user;
         $this->auth = $auth;
+        $this->config = $config;
     }
 
     static public function getSubscribedEvents()
@@ -96,6 +103,7 @@ class main_listener implements EventSubscriberInterface
             'core.permissions'                      => 'add_permission',
             'core.user_setup'			            => 'load_language_on_setup',
             'core.modify_posting_auth'              => 'posting',
+            'core.viewtopic_modify_page_title'      => 'viewtopic',
         ];
     }
 
@@ -121,7 +129,20 @@ class main_listener implements EventSubscriberInterface
         );
         $event['lang_set_ext'] = $lang_set_ext;
     }
-
+    public function viewtopic($event) {
+        $s_quick_reply = false;
+        if ($this->user->data['is_registered'] && $this->config['allow_quick_reply'] && ($event['topic_data']['forum_flags'] & FORUM_FLAG_QUICK_REPLY) && $this->auth->acl_get('f_reply', $event['forum_id']))
+        {
+            // Quick reply enabled forum
+            $s_quick_reply = (($event['topic_data']['forum_status'] == ITEM_UNLOCKED && $event['topic_data']['topic_status'] == ITEM_UNLOCKED) || $this->auth->acl_get('m_edit', $event['forum_id'])) ? true : false;
+        }
+        if ($s_quick_reply)
+        {
+            $this->template->assign_vars([
+                'UA_AJAX_MENTION_URL'    => $this->helper->route('paul999_mention_controller'),
+            ]);
+        }
+    }
 
     public function posting($event) {
         if ($this->auth->acl_get('u_can_mention'))

@@ -19,7 +19,7 @@ class version_001 extends \phpbb\db\migration\migration
             '\paul999\mention\migrations\install_permission',
             '\paul999\mention\migrations\install_role',
             '\paul999\mention\migrations\add_bbcode',
-            '\phpbb\db\migration\data\v32x\v320',
+            '\phpbb\db\migration\data\v320\v320',
         );
 	}
 

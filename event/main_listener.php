@@ -95,7 +95,6 @@ class main_listener implements EventSubscriberInterface
             'core.permissions'                      => 'add_permission',
             'core.user_setup'			            => 'load_language_on_setup',
             'core.modify_posting_auth'              => 'posting',
-            'core.text_formatter_s9e_render_after'  => 'replace_mention',
         ];
     }
 
@@ -110,7 +109,6 @@ class main_listener implements EventSubscriberInterface
      * Load common language files during user setup
      *
      * @param object $event The event object
-     * @return null
      * @access public
      */
     public function load_language_on_setup($event)
@@ -123,16 +121,6 @@ class main_listener implements EventSubscriberInterface
         $event['lang_set_ext'] = $lang_set_ext;
     }
 
-    public function replace_mention($event) {
-        $event['html'] = preg_replace_callback(
-            '([mention](.*)[/mention])',
-            function ($m)
-            {
-                return '';
-            },
-            $event['html']
-        );
-    }
 
     public function posting($event) {
         if ($this->auth->acl_get('u_can_mention'))

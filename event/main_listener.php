@@ -145,12 +145,18 @@ class main_listener implements EventSubscriberInterface
 
         $matches = [];
         $message = $event['data']['message'];
-        if (preg_match_all($this->regex, $message, $matches) === 0) {
+        if (preg_match_all($this->regex, $message, $matches) === 0)
+        {
             return;
         }
         $this->mention_data = [];
         $mentions = [];
         $data = [];
+
+        for ($i = 0; $i < $matches[1]; $i++)
+        {
+            $matches[1][$i] = utf8_clean_string($matches[1][$i]);
+        }
 
         $sql = 'SELECT user_id, username, user_permissions
                 FROM ' . USERS_TABLE . '

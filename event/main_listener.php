@@ -90,11 +90,12 @@ class main_listener implements EventSubscriberInterface
     static public function getSubscribedEvents()
     {
         return [
-            'core.submit_post_end'          => 'submit_post',
-            'core.modify_submit_post_data'  => 'modify_submit_post',
-            'core.permissions'              => 'add_permission',
-            'core.user_setup'			    => 'load_language_on_setup',
-            'core.modify_posting_auth'      => 'posting',
+            'core.submit_post_end'                  => 'submit_post',
+            'core.modify_submit_post_data'          => 'modify_submit_post',
+            'core.permissions'                      => 'add_permission',
+            'core.user_setup'			            => 'load_language_on_setup',
+            'core.modify_posting_auth'              => 'posting',
+            'core.text_formatter_s9e_render_after'  => 'replace_mention',
         ];
     }
 
@@ -120,6 +121,17 @@ class main_listener implements EventSubscriberInterface
             'lang_set' => 'common',
         );
         $event['lang_set_ext'] = $lang_set_ext;
+    }
+
+    public function replace_mention($event) {
+        $event['html'] = preg_replace_callback(
+            '([mention](.*)[/mention])',
+            function ($m)
+            {
+                return '';
+            },
+            $event['html']
+        );
     }
 
     public function posting($event) {

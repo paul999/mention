@@ -1,9 +1,9 @@
 $(document).ready(function() {
     console.log("Loading mention settings");
-    $('#message').atwho({
+    $('[name="message"]').atwho({
         at: "@",
 //        displayTpl: '\@${name}',
-        insertTpl: '[mention]${id}[/mention]',
+        insertTpl: '[mention]${name}[/mention]',
         callbacks: {
             /*
              It function is given, At.js will invoke it if local filter can not find any data

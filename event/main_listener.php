@@ -144,21 +144,40 @@ class main_listener implements EventSubscriberInterface
         }
 
         $matches = [];
-        if (preg_match_all($this->regex, $event['data']['message'], $matches) === 0) {
+        $message = $event['data']['message'];
+        if (preg_match_all($this->regex, $message, $matches) === 0) {
             return;
         }
         $this->mention_data = [];
+        $mentions = [];
+        $data = [];
 
-        $sql = 'SELECT user_id, username 
+        $sql = 'SELECT user_id, username, user_permissions
                 FROM ' . USERS_TABLE . '
-                WHERE ' . $this->db->sql_in_set('username_clean', $matches[1]) . ' OR ' .
-                          $this->db->sql_in_set('user_id', $matches[1]);
+                WHERE ' . $this->db->sql_in_set('username_clean', utf8_clean_string($matches[1]));
         $result = $this->db->sql_query($sql);
 
-        while ($row = $this->db->sql_fetchrow($result)) {
-            $this->mention_data[] = (int)$row['user_id'];
+        while ($row = $this->db->sql_fetchrow($result))
+        {
+            if (!in_array($row['user_id'], $mentions))
+            {
+                $mentions[] = (int)$row['user_id'];
+                $data[] = $row;
+            }
         }
         $this->db->sql_freeresult($result);
+
+        if (sizeof($data))
+        {
+            foreach ($data as $index => $row)
+            {
+                $auth = new auth();
+                $auth->acl($row);
+                if ($auth->acl_get('f_read', $event['forum_id'])) { // Only do the mention when the user is able to read the forum
+                    $this->mention_data[] = (int)$row['user_id'];
+                }
+            }
+        }
     }
     function submit_post($event)
     {

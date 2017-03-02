@@ -21,9 +21,6 @@ $(document).ready(function() {
                         callback(data)
                     });
                 }
-            },
-            tplEval: function (tpl, map) {
-                return "[mention]" + map + "[/mention]";
             }
         }
     });

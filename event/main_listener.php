@@ -30,7 +30,8 @@ class main_listener implements EventSubscriberInterface
     /**
      * @var string
      */
-    private $regex = "#\[mention\](.*?)\[/mention\]#si";
+    //private $regex = "#\[mention\](.*?)\[/mention\]#si";
+    private $regex = "#<r><MENTION><s>\[mention\]</s>(.*?)<e>\[/mention\]</e></MENTION></r>#si";
 
     /**
      * @var helper

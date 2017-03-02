@@ -88,7 +88,7 @@ class main
 
         while ($row = $this->db->sql_fetchrow($result))
         {
-            $return['usernames'] = [
+            $return['usernames'][] = [
                 'username'  => $row['username'],
                 'userid'    => $row['user_id'],
             ];

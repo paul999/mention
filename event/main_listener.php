@@ -94,6 +94,7 @@ class main_listener implements EventSubscriberInterface
             'core.modify_submit_post_data'  => 'modify_submit_post',
             'core.permissions'              => 'add_permission',
             'core.user_setup'			    => 'load_language_on_setup',
+            'core.modify_posting_auth'      => 'posting',
         ];
     }
 
@@ -122,9 +123,12 @@ class main_listener implements EventSubscriberInterface
     }
 
     public function posting($event) {
-        $this->template->assign_vars([
-           'UA_AJAX_MENTION_URL'    => $this->helper->route('paul999_mention_controller'),
-        ]);
+        if ($this->auth->acl_get('u_can_mention'))
+        {
+            $this->template->assign_vars([
+               'UA_AJAX_MENTION_URL'    => $this->helper->route('paul999_mention_controller'),
+            ]);
+        }
     }
 
     /**

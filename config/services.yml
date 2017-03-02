@@ -16,6 +16,7 @@ services:
             - '@notification_manager'
             - '@user'
             - '@auth'
+            - '@config'
         tags:
             - { name: event.listener }
 

@@ -173,7 +173,7 @@ class main_listener implements EventSubscriberInterface
             {
                 $auth = new auth();
                 $auth->acl($row);
-                if ($auth->acl_get('f_read', $event['forum_id'])) { // Only do the mention when the user is able to read the forum
+                if ($auth->acl_get('f_read', $event['data']['forum_id'])) { // Only do the mention when the user is able to read the forum
                     $this->mention_data[] = (int)$row['user_id'];
                 }
             }

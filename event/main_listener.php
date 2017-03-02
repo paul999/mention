@@ -153,7 +153,7 @@ class main_listener implements EventSubscriberInterface
         $mentions = [];
         $data = [];
 
-        for ($i = 0; $i < $matches[1]; $i++)
+        for ($i = 0; $i < sizeof($matches[1]); $i++)
         {
             $matches[1][$i] = utf8_clean_string($matches[1][$i]);
         }

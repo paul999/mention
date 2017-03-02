@@ -88,10 +88,7 @@ class main
 
         while ($row = $this->db->sql_fetchrow($result))
         {
-            $return['usernames'][] = [
-                'username'  => $row['username'],
-                'userid'    => $row['user_id'],
-            ];
+            $return['usernames'][] = $row['username'];
         }
         return new JsonResponse($return);
 	}

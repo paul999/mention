@@ -158,7 +158,7 @@ class main_listener implements EventSubscriberInterface
      */
     public function modify_submit_post($event)
     {
-        $handle = ['post', 'reply'];
+        $handle = ['post', 'reply', 'quote'];
 
         if (!in_array($event['mode'], $handle) || !$this->auth->acl_get('u_can_mention')) {
             return;

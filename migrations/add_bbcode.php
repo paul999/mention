@@ -32,7 +32,7 @@ class add_bbcode extends container_aware_migration
             'mention' => [
                 'display_on_posting'	=> false,
                 'bbcode_match'		    => '[mention]{TEXT}[/mention]',
-                'bbcode_tpl'		    => '<em class="mention">@{TEXT1}</em>',
+                'bbcode_tpl'		    => '<em class="mention">@{TEXT}</em>',
             ],
         ]);
 

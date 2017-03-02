@@ -154,7 +154,7 @@ class main_listener implements EventSubscriberInterface
 
         $sql = 'SELECT user_id, username, user_permissions
                 FROM ' . USERS_TABLE . '
-                WHERE ' . $this->db->sql_in_set('username_clean', utf8_clean_string($matches[1]));
+                WHERE ' . $this->db->sql_in_set('username_clean', $matches[1]);
         $result = $this->db->sql_query($sql);
 
         while ($row = $this->db->sql_fetchrow($result))

@@ -131,6 +131,24 @@ class bbcodes_installer
     }
 
     /**
+     * Retrieve the maximum value in a column from the bbcodes table
+     *
+     * @param string $column Name of the column (bbcode_id|bbcode_order)
+     * @return int The maximum value in the column
+     * @access private
+     */
+    private function get_max_column_value($column)
+    {
+        $sql = 'SELECT MAX(' . $this->db->sql_escape($column) . ') AS maximum
+			FROM ' . BBCODES_TABLE;
+        $result = $this->db->sql_query($sql);
+        $maximum = $this->db->sql_fetchfield('maximum');
+        $this->db->sql_freeresult($result);
+
+        return (int) $maximum;
+    }
+
+    /**
      * Get the acp_bbcodes class
      *
      * @return \acp_bbcodes

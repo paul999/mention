@@ -11,6 +11,7 @@ $(document).ready(function() {
              @param callback [Function] callback to render page.
              */
             remoteFilter: function(query, callback) {
+                console.log("Running data to a server for " + query, callback);
                 if (query.length < 3) {
                     callback([]);
                 }

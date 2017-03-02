@@ -2,7 +2,7 @@ $(document).ready(function() {
     console.log("Loading mention settings");
     $('#message').atwho({
         at: "@",
-        displayTpl: '\@${name}',
+//        displayTpl: '\@${name}',
         insertTpl: '[mention]${id}[/mention]',
         callbacks: {
             /*

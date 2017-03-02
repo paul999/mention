@@ -57,7 +57,6 @@ class bbcodes_installer
      * Installs bbcodes, used by migrations to perform add/updates
      *
      * @param array $bbcodes Array of bbcodes to install
-     * @return null
      * @access public
      */
     public function install_bbcodes(array $bbcodes)
@@ -75,77 +74,6 @@ class bbcodes_installer
                 $this->add_bbcode($bbcode_data);
             }
         }
-
-        $this->resynchronize_bbcode_order();
-    }
-
-    /**
-     * Resynchronize the Custom BBCodes order field
-     * (Based on Custom BBCode Sorting MOD by RMcGirr83)
-     *
-     * @access private
-     */
-    private function resynchronize_bbcode_order()
-    {
-        $this->db->sql_transaction('begin');
-
-        // By default, check that order is valid and fix it if necessary
-        $sql = 'SELECT bbcode_id, bbcode_order
-			FROM ' . BBCODES_TABLE . '
-			ORDER BY bbcode_order, bbcode_id';
-        $result = $this->db->sql_query($sql);
-
-        if ($row = $this->db->sql_fetchrow($result))
-        {
-            $order = 0;
-            do
-            {
-                // pre-increment $order
-                ++$order;
-
-                if ($row['bbcode_order'] != $order)
-                {
-                    $this->db->sql_query($this->update_bbcode_order($row['bbcode_id'], $order));
-                }
-            }
-            while ($row = $this->db->sql_fetchrow($result));
-        }
-        $this->db->sql_freeresult($result);
-
-        $this->db->sql_transaction('commit');
-    }
-
-    /**
-     * Build SQL query to update a bbcode order value
-     *
-     * @param int $bbcode_id    ID of the bbcode
-     * @param int $bbcode_order Value of the bbcode order
-     * @return string The SQL query to run
-     * @access private
-     */
-    private function update_bbcode_order($bbcode_id, $bbcode_order)
-    {
-        return 'UPDATE ' . BBCODES_TABLE . '
-			SET bbcode_order = ' . (int) $bbcode_order . '
-			WHERE bbcode_id = ' . (int) $bbcode_id;
-    }
-
-    /**
-     * Retrieve the maximum value in a column from the bbcodes table
-     *
-     * @param string $column Name of the column (bbcode_id|bbcode_order)
-     * @return int The maximum value in the column
-     * @access private
-     */
-    private function get_max_column_value($column)
-    {
-        $sql = 'SELECT MAX(' . $this->db->sql_escape($column) . ') AS maximum
-			FROM ' . BBCODES_TABLE;
-        $result = $this->db->sql_query($sql);
-        $maximum = $this->db->sql_fetchfield('maximum');
-        $this->db->sql_freeresult($result);
-
-        return (int) $maximum;
     }
 
     /**

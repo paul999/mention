@@ -32,7 +32,7 @@ class main_listener implements EventSubscriberInterface
      * @var string
      */
     //private $regex = "#\[mention\](.*?)\[/mention\]#si";
-    private $regex = "#<r><MENTION><s>\[mention\]</s>(.*?)<e>\[/mention\]</e></MENTION></r>#si";
+    private $regex = "#<r><MENTION><s>\[mention\]</s>(.*?)<e>\[/mention\]</e></MENTION></r>#";
 
     /**
      * @var helper
@@ -166,7 +166,7 @@ class main_listener implements EventSubscriberInterface
 
         $matches = [];
         $message = $event['data']['message'];
-        if (preg_match_all($this->regex, $message, $matches) === 0)
+        if (preg_match_all($this->regex, $message, $matches, PREG_OFFSET_CAPTURE) === 0)
         {
             return;
         }
@@ -176,7 +176,7 @@ class main_listener implements EventSubscriberInterface
 
         for ($i = 0; $i < sizeof($matches[1]); $i++)
         {
-            $matches[1][$i] = utf8_clean_string($matches[1][$i]);
+            $data = utf8_clean_string($matches[1][$i][0]);
         }
 
         $sql = 'SELECT user_id, username, user_permissions

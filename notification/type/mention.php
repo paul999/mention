@@ -167,10 +167,8 @@ class mention extends base
 	public function get_email_template_variables()
 	{
 		return [
-		    'USERNAME'          => $this->username,
-            'BOARD_NAME'        => $this->config[''],
-            'U_LINK_TO_TOPIC'   => generate_board_url() . 'viewtopic.' . $this->php_ext, 'p=' . $this->notification_data['post_id'] . '#p' .$this->notification_data['post_id'],
-            'EMAIL_SIG'         => $this->config[''],
+		    'USERNAME'          => $this->notification_data['username'],
+            'U_LINK_TO_TOPIC'   => generate_board_url() . 'viewtopic.' . $this->php_ext . '?p=' . $this->notification_data['post_id'] . '#p' .$this->notification_data['post_id'],
         ];
 	}
 

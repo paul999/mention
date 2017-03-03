@@ -10,15 +10,12 @@
 
 namespace paul999\mention\controller;
 use phpbb\auth\auth;
-use phpbb\config\config;
-use phpbb\controller\helper;
 use phpbb\db\driver\driver_interface;
 use phpbb\exception\http_exception;
 use phpbb\request\request_interface;
-use phpbb\template\template;
 use phpbb\user;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
+
 
 /**
  * phpBB mentions main controller.

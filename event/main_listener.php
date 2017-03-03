@@ -21,6 +21,7 @@ use phpbb\db\driver\driver_interface;
 use phpbb\notification\manager;
 use phpbb\template\template;
 use phpbb\user;
+use phpbb\viewonline_helper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -71,6 +72,10 @@ class main_listener implements EventSubscriberInterface
 	 * @var config
 	 */
 	private $config;
+	/**
+	 * @var viewonline_helper
+	 */
+	private $viewonline_helper;
 
 	/**
 	 * Constructor
@@ -82,8 +87,9 @@ class main_listener implements EventSubscriberInterface
 	 * @param user $user
 	 * @param auth $auth
 	 * @param config $config
+	 * @param viewonline_helper $viewonline_helper
 	 */
-	public function __construct(helper $helper, template $template, driver_interface $db, manager $notification_manager, user $user, auth $auth, config $config)
+	public function __construct(helper $helper, template $template, driver_interface $db, manager $notification_manager, user $user, auth $auth, config $config, viewonline_helper $viewonline_helper)
 	{
 		$this->helper = $helper;
 		$this->template = $template;
@@ -92,6 +98,7 @@ class main_listener implements EventSubscriberInterface
 		$this->user = $user;
 		$this->auth = $auth;
 		$this->config = $config;
+		$this->viewonline_helper = $viewonline_helper;
 	}
 
 	static public function getSubscribedEvents()
@@ -130,9 +137,9 @@ class main_listener implements EventSubscriberInterface
 		$event['lang_set_ext'] = $lang_set_ext;
 	}
 
-    /**
-     * @param array $event
-     */
+	/**
+	 * @param array $event
+	 */
 	public function viewtopic($event) {
 		$s_quick_reply = false;
 		if ($this->user->data['is_registered'] && $this->config['allow_quick_reply'] && ($event['topic_data']['forum_flags'] & FORUM_FLAG_QUICK_REPLY) && $this->auth->acl_get('f_reply', $event['forum_id']))
@@ -148,9 +155,9 @@ class main_listener implements EventSubscriberInterface
 		}
 	}
 
-    /**
-     * @param array $event
-     */
+	/**
+	 * @param array $event
+	 */
 	public function posting($event) {
 		if ($this->auth->acl_get('u_can_mention'))
 		{
@@ -160,14 +167,22 @@ class main_listener implements EventSubscriberInterface
 		}
 	}
 
-    /**
-     * @param array $event
-     */
+	/**
+	 * @param array $event
+	 */
 	public function permissions($event)
 	{
 		$disable = false;
 		if (!$this->auth->acl_get('u_can_mention'))
 		{
+			$disable = true;
+		}
+
+		$on_page = $this->viewonline_helper->get_user_page($this->user['session_page']);
+
+		if ($on_page !== 'posting')
+		{
+			// Only enable mention BBCode on posting page.
 			$disable = true;
 		}
 
@@ -232,7 +247,7 @@ class main_listener implements EventSubscriberInterface
 				$auth->acl($row);
 				if ($auth->acl_get('f_read', $event['data']['forum_id']))
 				{
-                    // Only do the mention when the user is able to read the forum
+					// Only do the mention when the user is able to read the forum
 					$this->mention_data[] = (int)$row['user_id'];
 				}
 			}

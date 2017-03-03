@@ -17,6 +17,7 @@ services:
             - '@user'
             - '@auth'
             - '@config'
+            - '@viewonline_helper'
         tags:
             - { name: event.listener }
 

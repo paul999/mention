@@ -16,11 +16,11 @@ class version_001 extends \phpbb\db\migration\migration
 	static public function depends_on()
 	{
 		return array(
-            '\paul999\mention\migrations\install_permission',
-            '\paul999\mention\migrations\install_role',
-            '\paul999\mention\migrations\add_bbcode',
-            '\phpbb\db\migration\data\v320\v320',
-        );
+			'\paul999\mention\migrations\install_permission',
+			'\paul999\mention\migrations\install_role',
+			'\paul999\mention\migrations\add_bbcode',
+			'\phpbb\db\migration\data\v320\v320',
+		);
 	}
 
 }

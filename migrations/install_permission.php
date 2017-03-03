@@ -17,10 +17,10 @@ class install_permission extends \phpbb\db\migration\migration
 		return array('\phpbb\db\migration\data\v31x\v314');
 	}
 
-    public function update_data()
-    {
-        return array(
-            array('permission.add', array('u_can_mention')),
-        );
-    }
+	public function update_data()
+	{
+		return array(
+			array('permission.add', array('u_can_mention')),
+		);
+	}
 }

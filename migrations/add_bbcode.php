@@ -20,21 +20,21 @@ class add_bbcode extends container_aware_migration
 		return array('\phpbb\db\migration\data\v31x\v314');
 	}
 
-    public function update_data()
-    {
-        return array(
-            array('custom', array(array($this, 'install_bbcodes'))),
-        );
-    }
-    public function install_bbcodes() {
-        $install = new bbcodes_installer($this->db, $this->container->get('request'), $this->container->get('user'), $this->phpbb_root_path, $this->php_ext);
-        $install->install_bbcodes([
-            'mention' => [
-                'display_on_posting'	=> false,
-                'bbcode_match'		    => '[mention]{TEXT}[/mention]',
-                'bbcode_tpl'		    => '<em class="mention">@{TEXT}</em>',
-            ],
-        ]);
+	public function update_data()
+	{
+		return array(
+			array('custom', array(array($this, 'install_bbcodes'))),
+		);
+	}
+	public function install_bbcodes() {
+		$install = new bbcodes_installer($this->db, $this->container->get('request'), $this->container->get('user'), $this->phpbb_root_path, $this->php_ext);
+		$install->install_bbcodes([
+			'mention' => [
+				'display_on_posting'	=> false,
+				'bbcode_match'		    => '[mention]{TEXT}[/mention]',
+				'bbcode_tpl'		    => '<em class="mention">@{TEXT}</em>',
+			],
+		]);
 
-    }
+	}
 }

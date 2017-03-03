@@ -16,8 +16,8 @@ class version_100RC2 extends \phpbb\db\migration\migration
 	static public function depends_on()
 	{
 		return array(
-            '\paul999\mention\migrations\version_001',
-        );
+			'\paul999\mention\migrations\version_001',
+		);
 	}
 
 }

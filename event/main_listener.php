@@ -199,6 +199,10 @@ class main_listener implements EventSubscriberInterface
         {
             foreach ($data as $index => $row)
             {
+                if ($this->user->data['user_id'] == $row['user_id'])
+                {
+                    continue; // Do not send notification to current user.
+                }
                 $auth = new auth();
                 $auth->acl($row);
                 if ($auth->acl_get('f_read', $event['data']['forum_id'])) { // Only do the mention when the user is able to read the forum

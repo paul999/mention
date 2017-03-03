@@ -130,6 +130,9 @@ class main_listener implements EventSubscriberInterface
 		$event['lang_set_ext'] = $lang_set_ext;
 	}
 
+    /**
+     * @param array $event
+     */
 	public function viewtopic($event) {
 		$s_quick_reply = false;
 		if ($this->user->data['is_registered'] && $this->config['allow_quick_reply'] && ($event['topic_data']['forum_flags'] & FORUM_FLAG_QUICK_REPLY) && $this->auth->acl_get('f_reply', $event['forum_id']))
@@ -145,6 +148,9 @@ class main_listener implements EventSubscriberInterface
 		}
 	}
 
+    /**
+     * @param array $event
+     */
 	public function posting($event) {
 		if ($this->auth->acl_get('u_can_mention'))
 		{
@@ -154,6 +160,9 @@ class main_listener implements EventSubscriberInterface
 		}
 	}
 
+    /**
+     * @param array $event
+     */
 	public function permissions($event)
 	{
 		$disable = false;
@@ -221,7 +230,9 @@ class main_listener implements EventSubscriberInterface
 				}
 				$auth = new auth();
 				$auth->acl($row);
-				if ($auth->acl_get('f_read', $event['data']['forum_id'])) { // Only do the mention when the user is able to read the forum
+				if ($auth->acl_get('f_read', $event['data']['forum_id']))
+				{
+                    // Only do the mention when the user is able to read the forum
 					$this->mention_data[] = (int)$row['user_id'];
 				}
 			}

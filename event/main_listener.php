@@ -103,6 +103,7 @@ class main_listener implements EventSubscriberInterface
             'core.user_setup'			            => 'load_language_on_setup',
             'core.modify_posting_auth'              => 'posting',
             'core.viewtopic_modify_page_title'      => 'viewtopic',
+            'core.text_formatter_s9e_parse_before'  => 'permissions',
         ];
     }
 
@@ -128,6 +129,7 @@ class main_listener implements EventSubscriberInterface
         );
         $event['lang_set_ext'] = $lang_set_ext;
     }
+
     public function viewtopic($event) {
         $s_quick_reply = false;
         if ($this->user->data['is_registered'] && $this->config['allow_quick_reply'] && ($event['topic_data']['forum_flags'] & FORUM_FLAG_QUICK_REPLY) && $this->auth->acl_get('f_reply', $event['forum_id']))
@@ -149,6 +151,20 @@ class main_listener implements EventSubscriberInterface
             $this->template->assign_vars([
                'UA_AJAX_MENTION_URL'    => $this->helper->route('paul999_mention_controller'),
             ]);
+        }
+    }
+
+    public function permissions($event)
+    {
+        $disable = false;
+        if (!$this->auth->acl_get('u_can_mention'))
+        {
+            $disable = true;
+        }
+
+        if ($disable)
+        {
+            $event['parser']->disable_bbcode('mention');
         }
     }
 

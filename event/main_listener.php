@@ -180,7 +180,7 @@ class main_listener implements EventSubscriberInterface
 
 		$on_page = $this->viewonline_helper->get_user_page($this->user['session_page']);
 
-		if ($on_page !== 'posting')
+		if ($on_page[1] !== 'posting')
 		{
 			// Only enable mention BBCode on posting page.
 			$disable = true;

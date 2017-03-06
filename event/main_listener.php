@@ -218,7 +218,7 @@ class main_listener implements EventSubscriberInterface
 			$data[] = utf8_clean_string($matches[1][$i][0]);
 		}
 
-		$sql = 'SELECT user_id, username, user_permissions
+		$sql = 'SELECT user_id, username, user_permissions, user_type
 				FROM ' . USERS_TABLE . '
 				WHERE ' . $this->db->sql_in_set('username_clean', $data);
 		$result = $this->db->sql_query($sql);

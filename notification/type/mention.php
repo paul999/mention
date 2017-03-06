@@ -94,8 +94,7 @@ class mention extends base
 	 */
 	public static function get_item_parent_id($data)
 	{
-		// No parent
-		return 0;
+		return isset($data['topic_id']) ? $data['topic_id'] : 0;
 	}
 
 	/**
@@ -188,6 +187,7 @@ class mention extends base
 		$this->set_data('user_ids', $data['user_ids']);
 		$this->set_data('poster_id', (int)$data['poster_id']);
 		$this->set_data('post_id', (int)$data['post_id']);
+        $this->set_data('topic_id', (int)$data['topic_id']);
 
 
 		parent::create_insert_array($data, $pre_create_data);

@@ -263,6 +263,7 @@ class main_listener implements EventSubscriberInterface
 				'username'          => $this->user->data['username'],
 				'poster_id'         => $this->user->data['user_id'],
 				'post_id'           => $event['data']['post_id'],
+                'topic_id'          => $event['data']['topic_id'],
 			],
 			[
 				'user_ids'		    => $this->mention_data,

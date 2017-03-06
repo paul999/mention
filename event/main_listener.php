@@ -156,6 +156,87 @@ class main_listener implements EventSubscriberInterface
 	}
 
 	/**
+	 * Mark notifications as read when topics are read,
+	 * or when user uses the mark as read function.
+	 *
+	 * @param array $event
+	 */
+	public function markRead($event)
+	{
+		switch ($event['mode']) {
+			case 'all':
+				$this->markAllRead($event['post_time']);
+			break;
+
+			case 'topics':
+				$this->markForumRead($event['forum_id'], $event['post_time']);
+			break;
+
+			case 'topic':
+				$this->markTopicRead($event['topic_id'], $event['post_time']);
+			break;
+		}
+	}
+
+	/**
+	 * Mark all notifications as read
+	 * @param int $post_time
+	 */
+	private function markAllRead($post_time)
+	{
+		$this->notification_manager->mark_notifications([
+			'paul999.mention.notification.type.mention',
+		], false, $this->user->data['user_id'], $post_time);
+	}
+
+	/**
+	 * Mark notifications for a topic_id as read
+	 * @param int|array $topic_id
+	 * @param int $post_time
+	 */
+	private function markTopicRead($topic_id, $post_time)
+	{
+		$this->notification_manager->mark_notifications_by_parent(array(
+			'paul999.mention.notification.type.mention',
+		), $topic_id, $this->user->data['user_id'], $post_time);
+	}
+
+	/**
+	 * Mark notifications for forum_id as read
+	 * @param int|array $forum_id
+	 * @param int $post_time
+	 */
+	private function markForumRead($forum_id, $post_time)
+	{
+		// Mark all topics in forums read
+		if (!is_array($forum_id))
+		{
+			$forum_id = [$forum_id];
+		}
+		else
+		{
+			$forum_id = array_unique($forum_id);
+		}
+
+		// Mark all post/quote notifications read for this user in this forum
+		// Pretty bad, as this query is already done in mark_read, but
+		// because we have no access to that data in the event we need to run it
+		// again :(
+		$topic_ids = array();
+		$sql = 'SELECT topic_id
+			FROM ' . TOPICS_TABLE . '
+			WHERE ' . $this->db->sql_in_set('forum_id', $forum_id);
+		$result = $this->db->sql_query($sql);
+		while ($row = $this->db->sql_fetchrow($result))
+		{
+			$topic_ids[] = $row['topic_id'];
+		}
+		$this->db->sql_freeresult($result);
+
+		$this->markTopicRead($topic_ids, $post_time);
+	}
+
+	/**
 	 * @param array $event
 	 */
 	public function posting($event) {
@@ -263,6 +344,7 @@ class main_listener implements EventSubscriberInterface
 				'username'          => $this->user->data['username'],
 				'poster_id'         => $this->user->data['user_id'],
 				'post_id'           => $event['data']['post_id'],
+				'topic_id'          => $event['data']['topic_id'],
 			],
 			[
 				'user_ids'		    => $this->mention_data,

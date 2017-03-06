@@ -17,31 +17,31 @@ use phpbb\notification\type\base;
  */
 class mention extends base
 {
-    /**
-     * @var config
-     */
-    private $config;
+	/**
+	 * @var config
+	 */
+	private $config;
 
-    /**
-     * @var \phpbb\user_loader
-     */
-    protected $user_loader;
+	/**
+	 * @var \phpbb\user_loader
+	 */
+	protected $user_loader;
 
-    /**
-     * Set the config class
-     *
-     * @param config $config
-     *
-     */
-    public function set_config(config $config)
-    {
-        $this->config = $config;
-    }
+	/**
+	 * Set the config class
+	 *
+	 * @param config $config
+	 *
+	 */
+	public function set_config(config $config)
+	{
+		$this->config = $config;
+	}
 
-    public function set_user_loader(\phpbb\user_loader $user_loader)
-    {
-        $this->user_loader = $user_loader;
-    }
+	public function set_user_loader(\phpbb\user_loader $user_loader)
+	{
+		$this->user_loader = $user_loader;
+	}
 
 	/**
 	 * Get notification type name
@@ -85,7 +85,7 @@ class mention extends base
 		return $data['notification_id'];
 	}
 
-    /**
+	/**
 	 * Get the id of the parent
 	 *
 	 * @param array $data The data for the updated rules
@@ -94,8 +94,7 @@ class mention extends base
 	 */
 	public static function get_item_parent_id($data)
 	{
-		// No parent
-		return 0;
+		return isset($data['topic_id']) ? $data['topic_id'] : 0;
 	}
 
 	/**
@@ -110,12 +109,12 @@ class mention extends base
 	 */
 	public function find_users_for_notification($data, $options = array())
 	{
-	    $users = [];
+		$users = [];
 
-	    foreach($options['user_ids'] as $key => $user)
-        {
-            $users[$user] = $user;
-        }
+		foreach($options['user_ids'] as $key => $user)
+		{
+			$users[$user] = $user;
+		}
 		return $this->check_user_notification_options($users);
 	}
 
@@ -136,7 +135,7 @@ class mention extends base
 	 */
 	public function get_title()
 	{
-	    return $this->language->lang('MENTION_MENTION_NOTIFICATION', $this->user_loader->get_username($this->notification_data['poster_id'], 'no_profile'));
+		return $this->language->lang('MENTION_MENTION_NOTIFICATION', $this->user_loader->get_username($this->notification_data['poster_id'], 'no_profile'));
 	}
 
 	/**
@@ -167,9 +166,9 @@ class mention extends base
 	public function get_email_template_variables()
 	{
 		return [
-		    'USERNAME'          => $this->notification_data['username'],
-            'U_LINK_TO_TOPIC'   => generate_board_url() . 'viewtopic.' . $this->php_ext . '?p=' . $this->notification_data['post_id'] . '#p' .$this->notification_data['post_id'],
-        ];
+			'USERNAME'          => $this->notification_data['username'],
+			'U_LINK_TO_TOPIC'   => generate_board_url() . 'viewtopic.' . $this->php_ext . '?p=' . $this->notification_data['post_id'] . '#p' .$this->notification_data['post_id'],
+		];
 	}
 
 	/**
@@ -188,6 +187,7 @@ class mention extends base
 		$this->set_data('user_ids', $data['user_ids']);
 		$this->set_data('poster_id', (int)$data['poster_id']);
 		$this->set_data('post_id', (int)$data['post_id']);
+		$this->set_data('topic_id', (int)$data['topic_id']);
 
 
 		parent::create_insert_array($data, $pre_create_data);

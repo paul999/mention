@@ -111,6 +111,7 @@ class main_listener implements EventSubscriberInterface
 			'core.modify_posting_auth'              => 'posting',
 			'core.viewtopic_modify_page_title'      => 'viewtopic',
 			'core.text_formatter_s9e_parse_before'  => 'permissions',
+			'core.posting_modify_template_vars'     => 'remove_mention_in_quote',
 		];
 	}
 
@@ -271,6 +272,22 @@ class main_listener implements EventSubscriberInterface
 		{
 			$event['parser']->disable_bbcode('mention');
 		}
+	}
+
+	/**
+	 * Remove mention BBCode from quote.
+	 * @param array $event
+	 */
+	public function remove_mention_in_quote($event)
+	{
+		if ($event['submit'] || $event['preview'] || $event['refresh'] || $event['mode'] != 'quote')
+		{
+			return;
+		}
+		$message = $event['page_data']['message'];
+		$message = preg_replace('#\[mention\](.*?)\[\/mention\]#uis', '@\\1', $message);
+
+		$event['page_data']['message'] = $message;
 	}
 
 	/**

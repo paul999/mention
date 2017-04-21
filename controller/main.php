@@ -72,7 +72,7 @@ class main
 		}
 		$name = $this->request->variable('q', '');
 
-		if (strlen($name) < 3)
+		if (strlen($name) < 2)
 		{
 			return new JsonResponse(['usernames' => []]);
 		}

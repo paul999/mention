@@ -9,7 +9,7 @@ $(document).ready(function() {
              @param callback [Function] callback to render page.
              */
             remoteFilter: function(query, callback) {
-                if (query.length < 3) {
+                if (query.length < 2) {
                     callback([]);
                 }
                 else {

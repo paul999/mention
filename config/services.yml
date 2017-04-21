@@ -17,7 +17,7 @@ services:
             - '@user'
             - '@auth'
             - '@config'
-            - '@viewonline_helper'
+            - '%core.php_ext%'
         tags:
             - { name: event.listener }
 

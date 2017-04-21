@@ -72,24 +72,25 @@ class main_listener implements EventSubscriberInterface
 	 * @var config
 	 */
 	private $config;
-	/**
-	 * @var viewonline_helper
-	 */
-	private $viewonline_helper;
+    /**
+     * @var string
+     */
+    private $php_ext;
 
-	/**
-	 * Constructor
-	 *
-	 * @param helper $helper Controller helper object
-	 * @param template $template Template object
-	 * @param driver_interface $db
-	 * @param manager $notification_manager
-	 * @param user $user
-	 * @param auth $auth
-	 * @param config $config
-	 * @param viewonline_helper $viewonline_helper
-	 */
-	public function __construct(helper $helper, template $template, driver_interface $db, manager $notification_manager, user $user, auth $auth, config $config, viewonline_helper $viewonline_helper)
+    /**
+     * Constructor
+     *
+     * @param helper $helper Controller helper object
+     * @param template $template Template object
+     * @param driver_interface $db
+     * @param manager $notification_manager
+     * @param user $user
+     * @param auth $auth
+     * @param config $config
+     * @param string $php_ext
+     * @internal param viewonline_helper $viewonline_helper
+     */
+	public function __construct(helper $helper, template $template, driver_interface $db, manager $notification_manager, user $user, auth $auth, config $config, $php_ext)
 	{
 		$this->helper = $helper;
 		$this->template = $template;
@@ -98,8 +99,8 @@ class main_listener implements EventSubscriberInterface
 		$this->user = $user;
 		$this->auth = $auth;
 		$this->config = $config;
-		$this->viewonline_helper = $viewonline_helper;
-	}
+        $this->php_ext = $php_ext;
+    }
 
 	static public function getSubscribedEvents()
 	{
@@ -260,9 +261,7 @@ class main_listener implements EventSubscriberInterface
 			$disable = true;
 		}
 
-		$on_page = $this->viewonline_helper->get_user_page($this->user->data['session_page']);
-
-		if ($on_page[1] !== 'posting')
+		if ($this->user->page['page_name'] != 'posting.' . $this->php_ext)
 		{
 			// Only enable mention BBCode on posting page.
 			$disable = true;

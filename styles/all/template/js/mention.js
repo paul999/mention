@@ -16,7 +16,6 @@ $(document).ready(function() {
                 }
                 else {
                     $.getJSON(U_AJAX_MENTION_URL, {q: query}, function (data) {
-                        console.log(data);
                         callback(data)
                     });
                 }

@@ -17,6 +17,7 @@ class version_100RC2 extends \phpbb\db\migration\migration
 	{
 		return array(
 			'\paul999\mention\migrations\version_001',
+            '\paul999\mention\migrations\update_bbcode',
 		);
 	}
 

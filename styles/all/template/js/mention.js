@@ -2,6 +2,8 @@ $(document).ready(function() {
     $('[name="message"]').atwho({
         at: "@",
         insertTpl: '[mention]${name}[/mention]',
+        limit: 500,
+        maxLen: 25,
         callbacks: {
             /*
              It function is given, At.js will invoke it if local filter can not find any data
@@ -20,7 +22,7 @@ $(document).ready(function() {
                 }
             },
             matcher: function(flag, subtext) {
-                var regexp = new XRegExp('(\\s+|^)' + flag + '(\\p{L}+)$', 'gi');
+                var regexp = new XRegExp('(\\s+|^)' + flag + '(\\p{L}_-[space]+)$', 'gi');
                 var match = regexp.exec(subtext);
                 return (match != null && match[2]) ? match[2] : null;
             }

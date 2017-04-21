@@ -260,7 +260,7 @@ class main_listener implements EventSubscriberInterface
 			$disable = true;
 		}
 
-		$on_page = $this->viewonline_helper->get_user_page($this->user['session_page']);
+		$on_page = $this->viewonline_helper->get_user_page($this->user->data['session_page']);
 
 		if ($on_page[1] !== 'posting')
 		{

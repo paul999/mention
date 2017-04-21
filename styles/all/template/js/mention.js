@@ -20,11 +20,9 @@ $(document).ready(function() {
                 }
             },
             matcher: function(flag, subtext) {
-                var match, matched, regexp;
-                regexp = new XRegExp('(\\s+|^)' + flag + '(\\p{L}+)$', 'gi');
-                match = regexp.exec(subtext);
-                // ... get matched result
-                return matched;
+                var regexp = new XRegExp('(\\s+|^)' + flag + '(\\p{L}+)$', 'gi');
+                var match = regexp.exec(subtext);
+                return match[2];
             }
         }
     });

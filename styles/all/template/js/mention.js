@@ -22,7 +22,7 @@ $(document).ready(function() {
             matcher: function(flag, subtext) {
                 var regexp = new XRegExp('(\\s+|^)' + flag + '(\\p{L}+)$', 'gi');
                 var match = regexp.exec(subtext);
-                return match[2];
+                return (match != null && match[2]) ? match[2] : null;
             }
         }
     });

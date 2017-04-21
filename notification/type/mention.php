@@ -171,6 +171,14 @@ class mention extends base
 		];
 	}
 
+    /**
+     * Get the user's avatar
+     */
+    public function get_avatar()
+    {
+        return $this->user_loader->get_avatar($this->get_data('poster_id'), false, true);
+    }
+
 	/**
 	 * Function for preparing the data for insertion in an SQL query
 	 * (The service handles insertion)

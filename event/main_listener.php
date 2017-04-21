@@ -113,6 +113,7 @@ class main_listener implements EventSubscriberInterface
 			'core.viewtopic_modify_page_title'      => 'viewtopic',
 			'core.text_formatter_s9e_parse_before'  => 'permissions',
 			'core.posting_modify_template_vars'     => 'remove_mention_in_quote',
+            'core.markread_before'                  => 'mark_read',
 		];
 	}
 
@@ -163,7 +164,7 @@ class main_listener implements EventSubscriberInterface
 	 *
 	 * @param array $event
 	 */
-	public function markRead($event)
+	public function mark_read($event)
 	{
 		switch ($event['mode']) {
 			case 'all':

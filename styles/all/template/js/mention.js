@@ -18,6 +18,13 @@ $(document).ready(function() {
                         callback(data)
                     });
                 }
+            },
+            matcher: function(flag, subtext) {
+                var match, matched, regexp;
+                regexp = new XRegExp('(\\s+|^)' + flag + '(\\p{L}+)$', 'gi');
+                match = regexp.exec(subtext);
+                // ... get matched result
+                return matched;
             }
         }
     });

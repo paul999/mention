@@ -72,24 +72,24 @@ class main_listener implements EventSubscriberInterface
 	 * @var config
 	 */
 	private $config;
-    /**
-     * @var string
-     */
-    private $php_ext;
+	/**
+	 * @var string
+	 */
+	private $php_ext;
 
-    /**
-     * Constructor
-     *
-     * @param helper $helper Controller helper object
-     * @param template $template Template object
-     * @param driver_interface $db
-     * @param manager $notification_manager
-     * @param user $user
-     * @param auth $auth
-     * @param config $config
-     * @param string $php_ext
-     * @internal param viewonline_helper $viewonline_helper
-     */
+	/**
+	 * Constructor
+	 *
+	 * @param helper $helper Controller helper object
+	 * @param template $template Template object
+	 * @param driver_interface $db
+	 * @param manager $notification_manager
+	 * @param user $user
+	 * @param auth $auth
+	 * @param config $config
+	 * @param string $php_ext
+	 * @internal param viewonline_helper $viewonline_helper
+	 */
 	public function __construct(helper $helper, template $template, driver_interface $db, manager $notification_manager, user $user, auth $auth, config $config, $php_ext)
 	{
 		$this->helper = $helper;
@@ -99,8 +99,8 @@ class main_listener implements EventSubscriberInterface
 		$this->user = $user;
 		$this->auth = $auth;
 		$this->config = $config;
-        $this->php_ext = $php_ext;
-    }
+		$this->php_ext = $php_ext;
+	}
 
 	static public function getSubscribedEvents()
 	{
@@ -113,7 +113,7 @@ class main_listener implements EventSubscriberInterface
 			'core.viewtopic_modify_page_title'      => 'viewtopic',
 			'core.text_formatter_s9e_parse_before'  => 'permissions',
 			'core.posting_modify_template_vars'     => 'remove_mention_in_quote',
-            'core.markread_before'                  => 'mark_read',
+			'core.markread_before'                  => 'mark_read',
 		];
 	}
 

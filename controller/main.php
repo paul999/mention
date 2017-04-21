@@ -70,7 +70,7 @@ class main
 		{
 			throw new http_exception(401);
 		}
-		$name = $this->request->variable('q', '');
+		$name = utf8_clean_string($this->request->variable('q', '', true));
 
 		if (strlen($name) < 2)
 		{

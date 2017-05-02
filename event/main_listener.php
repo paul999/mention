@@ -351,7 +351,8 @@ class main_listener implements EventSubscriberInterface
 			}
 		}
 	}
-	function submit_post($event)
+
+	public function submit_post($event)
 	{
 		if (sizeof($this->mention_data))
 		{
@@ -362,6 +363,7 @@ class main_listener implements EventSubscriberInterface
 				'poster_id'         => $this->user->data['user_id'],
 				'post_id'           => $event['data']['post_id'],
 				'topic_id'          => $event['data']['topic_id'],
+				'topic_title'		=> $event['data']['topic_title'],
 			],
 			[
 				'user_ids'		    => $this->mention_data,

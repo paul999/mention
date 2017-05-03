@@ -10,7 +10,7 @@
 
 namespace paul999\mention\migrations;
 
-class version_100RC2 extends \phpbb\db\migration\migration
+class version_100rc2 extends \phpbb\db\migration\migration
 {
 
 	static public function depends_on()

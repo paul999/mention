@@ -280,14 +280,14 @@ class main_listener implements EventSubscriberInterface
 	 */
 	public function remove_mention_in_quote($event)
 	{
-		if ($event['submit'] || $event['preview'] || $event['refresh'] || $event['mode'] != 'quote')
+		if ($event['submit'] || $event['preview'] || $event['refresh'] || $event['mode'] != 'quote' || !isset($event['page_data']) || !isset($event['page_data']['message']))
 		{
 			return;
 		}
-		$message = $event['page_data']['message'];
-		$message = preg_replace('#\[mention\](.*?)\[\/mention\]#uis', '@\\1', $message);
+		$page_data = $event['page_data'];
+		$page_data['message'] = preg_replace('#\[mention\](.*?)\[\/mention\]#uis', '@\\1', $page_data['message']);
 
-		$event['page_data']['message'] = $message;
+		$event['page_data'] = $page_data;
 	}
 
 	/**

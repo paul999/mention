@@ -9,6 +9,7 @@
  */
 
 namespace paul999\mention\notification\type;
+
 use phpbb\config\config;
 use phpbb\notification\type\base;
 
@@ -111,7 +112,7 @@ class mention extends base
 	{
 		$users = [];
 
-		foreach($options['user_ids'] as $key => $user)
+		foreach ($options['user_ids'] as $key => $user)
 		{
 			$users[$user] = $user;
 		}
@@ -171,13 +172,13 @@ class mention extends base
 		];
 	}
 
-    /**
-     * Get the user's avatar
-     */
-    public function get_avatar()
-    {
-        return $this->user_loader->get_avatar($this->get_data('poster_id'), false, true);
-    }
+	/**
+	 * Get the user's avatar
+	 */
+	public function get_avatar()
+	{
+		return $this->user_loader->get_avatar($this->get_data('poster_id'), false, true);
+	}
 
 	/**
 	 * Function for preparing the data for insertion in an SQL query
@@ -193,10 +194,9 @@ class mention extends base
 		$this->set_data('notification_id', $data['notification_id']);
 		$this->set_data('username', $data['username']);
 		$this->set_data('user_ids', $data['user_ids']);
-		$this->set_data('poster_id', (int)$data['poster_id']);
-		$this->set_data('post_id', (int)$data['post_id']);
-		$this->set_data('topic_id', (int)$data['topic_id']);
-
+		$this->set_data('poster_id', (int) $data['poster_id']);
+		$this->set_data('post_id', (int) $data['post_id']);
+		$this->set_data('topic_id', (int) $data['topic_id']);
 
 		parent::create_insert_array($data, $pre_create_data);
 	}

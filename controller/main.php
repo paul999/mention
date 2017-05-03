@@ -9,13 +9,13 @@
  */
 
 namespace paul999\mention\controller;
+
 use phpbb\auth\auth;
 use phpbb\db\driver\driver_interface;
 use phpbb\exception\http_exception;
 use phpbb\request\request_interface;
 use phpbb\user;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
 
 /**
  * phpBB mentions main controller.

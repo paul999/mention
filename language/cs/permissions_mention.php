@@ -13,12 +13,12 @@
  */
 if (!defined('IN_PHPBB'))
 {
-    exit;
+	exit;
 }
 
 if (empty($lang) || !is_array($lang))
 {
-    $lang = array();
+	$lang = array();
 }
 
 // DEVELOPERS PLEASE NOTE
@@ -38,8 +38,8 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge(
-    $lang, array(
-        'ACL_U_CAN_MENTION'      => 'Může používat systém zmínek',
+	$lang, array(
+		'ACL_U_CAN_MENTION'      => 'Může používat systém zmínek',
 
-    )
+	)
 );

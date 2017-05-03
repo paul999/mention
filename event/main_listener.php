@@ -143,7 +143,7 @@ class main_listener implements EventSubscriberInterface
 	 * @param array $event
 	 */
 	public function viewtopic($event)
-    {
+	{
 		$s_quick_reply = false;
 		if ($this->user->data['is_registered'] && $this->config['allow_quick_reply'] && ($event['topic_data']['forum_flags'] & FORUM_FLAG_QUICK_REPLY) && $this->auth->acl_get('f_reply', $event['forum_id']))
 		{
@@ -167,7 +167,7 @@ class main_listener implements EventSubscriberInterface
 	public function mark_read($event)
 	{
 		switch ($event['mode'])
-        {
+		{
 			case 'all':
 				$this->mark_all_read($event['post_time']);
 			break;
@@ -244,7 +244,7 @@ class main_listener implements EventSubscriberInterface
 	 * @param array $event
 	 */
 	public function posting($event)
-    {
+	{
 		if ($this->auth->acl_get('u_can_mention'))
 		{
 			$this->template->assign_vars([

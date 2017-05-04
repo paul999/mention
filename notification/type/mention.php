@@ -198,7 +198,7 @@ class mention extends base
 		$this->set_data('poster_id', (int) $data['poster_id']);
 		$this->set_data('post_id', (int) $data['post_id']);
 		$this->set_data('topic_id', (int) $data['topic_id']);
-    $this->set_data('topic_title', $data['topic_title']);
+		$this->set_data('topic_title', $data['topic_title']);
 
 		parent::create_insert_array($data, $pre_create_data);
 	}

@@ -1,6 +1,8 @@
 <?php
 /**
  *
+ * Original code from:
+ *
  * Advanced BBCode Box
  *
  * @copyright (c) 2016 Matt Friedman

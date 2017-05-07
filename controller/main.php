@@ -92,6 +92,7 @@ class main
 				'id'    => $row['user_id'],
 			];
 		}
+		$this->db->sql_freeresult($result);
 		return new JsonResponse($return);
 	}
 }

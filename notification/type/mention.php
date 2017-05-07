@@ -9,6 +9,7 @@
  */
 
 namespace paul999\mention\notification\type;
+
 use phpbb\config\config;
 use phpbb\notification\type\base;
 
@@ -111,7 +112,7 @@ class mention extends base
 	{
 		$users = [];
 
-		foreach($options['user_ids'] as $key => $user)
+		foreach ($options['user_ids'] as $key => $user)
 		{
 			$users[$user] = $user;
 		}
@@ -135,7 +136,7 @@ class mention extends base
 	 */
 	public function get_title()
 	{
-		return $this->language->lang('MENTION_MENTION_NOTIFICATION', $this->user_loader->get_username($this->notification_data['poster_id'], 'no_profile'));
+		return $this->language->lang('MENTION_MENTION_NOTIFICATION', $this->user_loader->get_username($this->notification_data['poster_id'], 'no_profile'), $this->notification_data['topic_title']);
 	}
 
 	/**
@@ -167,17 +168,18 @@ class mention extends base
 	{
 		return [
 			'USERNAME'          => $this->notification_data['username'],
+			'TOPIC_TITLE'		=> $this->notification_data['topic_title'],
 			'U_LINK_TO_TOPIC'   => generate_board_url() . 'viewtopic.' . $this->php_ext . '?p=' . $this->notification_data['post_id'] . '#p' .$this->notification_data['post_id'],
 		];
 	}
 
-    /**
-     * Get the user's avatar
-     */
-    public function get_avatar()
-    {
-        return $this->user_loader->get_avatar($this->get_data('poster_id'), false, true);
-    }
+	/**
+	 * Get the user's avatar
+	 */
+	public function get_avatar()
+	{
+		return $this->user_loader->get_avatar($this->get_data('poster_id'), false, true);
+	}
 
 	/**
 	 * Function for preparing the data for insertion in an SQL query
@@ -193,10 +195,10 @@ class mention extends base
 		$this->set_data('notification_id', $data['notification_id']);
 		$this->set_data('username', $data['username']);
 		$this->set_data('user_ids', $data['user_ids']);
-		$this->set_data('poster_id', (int)$data['poster_id']);
-		$this->set_data('post_id', (int)$data['post_id']);
-		$this->set_data('topic_id', (int)$data['topic_id']);
-
+		$this->set_data('poster_id', (int) $data['poster_id']);
+		$this->set_data('post_id', (int) $data['post_id']);
+		$this->set_data('topic_id', (int) $data['topic_id']);
+		$this->set_data('topic_title', $data['topic_title']);
 
 		parent::create_insert_array($data, $pre_create_data);
 	}

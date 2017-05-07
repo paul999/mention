@@ -21,7 +21,6 @@ use phpbb\db\driver\driver_interface;
 use phpbb\notification\manager;
 use phpbb\template\template;
 use phpbb\user;
-use phpbb\viewonline_helper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -143,7 +142,8 @@ class main_listener implements EventSubscriberInterface
 	/**
 	 * @param array $event
 	 */
-	public function viewtopic($event) {
+	public function viewtopic($event)
+	{
 		$s_quick_reply = false;
 		if ($this->user->data['is_registered'] && $this->config['allow_quick_reply'] && ($event['topic_data']['forum_flags'] & FORUM_FLAG_QUICK_REPLY) && $this->auth->acl_get('f_reply', $event['forum_id']))
 		{
@@ -166,17 +166,18 @@ class main_listener implements EventSubscriberInterface
 	 */
 	public function mark_read($event)
 	{
-		switch ($event['mode']) {
+		switch ($event['mode'])
+		{
 			case 'all':
-				$this->markAllRead($event['post_time']);
+				$this->mark_all_read($event['post_time']);
 			break;
 
 			case 'topics':
-				$this->markForumRead($event['forum_id'], $event['post_time']);
+				$this->mark_forum_read($event['forum_id'], $event['post_time']);
 			break;
 
 			case 'topic':
-				$this->markTopicRead($event['topic_id'], $event['post_time']);
+				$this->mark_topic_tead($event['topic_id'], $event['post_time']);
 			break;
 		}
 	}
@@ -185,7 +186,7 @@ class main_listener implements EventSubscriberInterface
 	 * Mark all notifications as read
 	 * @param int $post_time
 	 */
-	private function markAllRead($post_time)
+	private function mark_all_read($post_time)
 	{
 		$this->notification_manager->mark_notifications([
 			'paul999.mention.notification.type.mention',
@@ -197,7 +198,7 @@ class main_listener implements EventSubscriberInterface
 	 * @param int|array $topic_id
 	 * @param int $post_time
 	 */
-	private function markTopicRead($topic_id, $post_time)
+	private function mark_topic_tead($topic_id, $post_time)
 	{
 		$this->notification_manager->mark_notifications_by_parent(array(
 			'paul999.mention.notification.type.mention',
@@ -209,7 +210,7 @@ class main_listener implements EventSubscriberInterface
 	 * @param int|array $forum_id
 	 * @param int $post_time
 	 */
-	private function markForumRead($forum_id, $post_time)
+	private function mark_forum_read($forum_id, $post_time)
 	{
 		// Mark all topics in forums read
 		if (!is_array($forum_id))
@@ -236,13 +237,14 @@ class main_listener implements EventSubscriberInterface
 		}
 		$this->db->sql_freeresult($result);
 
-		$this->markTopicRead($topic_ids, $post_time);
+		$this->mark_topic_tead($topic_ids, $post_time);
 	}
 
 	/**
 	 * @param array $event
 	 */
-	public function posting($event) {
+	public function posting($event)
+	{
 		if ($this->auth->acl_get('u_can_mention'))
 		{
 			$this->template->assign_vars([
@@ -280,14 +282,14 @@ class main_listener implements EventSubscriberInterface
 	 */
 	public function remove_mention_in_quote($event)
 	{
-		if ($event['submit'] || $event['preview'] || $event['refresh'] || $event['mode'] != 'quote')
+		if ($event['submit'] || $event['preview'] || $event['refresh'] || $event['mode'] != 'quote' || !isset($event['page_data']) || !isset($event['page_data']['message']))
 		{
 			return;
 		}
-		$message = $event['page_data']['message'];
-		$message = preg_replace('#\[mention\](.*?)\[\/mention\]#uis', '@\\1', $message);
+		$page_data = $event['page_data'];
+		$page_data['message'] = preg_replace('#\[mention\](.*?)\[\/mention\]#uis', '@\\1', $page_data['message']);
 
-		$event['page_data']['message'] = $message;
+		$event['page_data'] = $page_data;
 	}
 
 	/**
@@ -297,7 +299,8 @@ class main_listener implements EventSubscriberInterface
 	{
 		$handle = ['post', 'reply', 'quote'];
 
-		if (!in_array($event['mode'], $handle) || !$this->auth->acl_get('u_can_mention')) {
+		if (!in_array($event['mode'], $handle) || !$this->auth->acl_get('u_can_mention'))
+		{
 			return;
 		}
 
@@ -327,7 +330,7 @@ class main_listener implements EventSubscriberInterface
 		{
 			if (!in_array($row['user_id'], $mentions))
 			{
-				$mentions[] = (int)$row['user_id'];
+				$mentions[] = (int) $row['user_id'];
 				$data[] = $row;
 			}
 		}
@@ -346,12 +349,13 @@ class main_listener implements EventSubscriberInterface
 				if ($auth->acl_get('f_read', $event['data']['forum_id']))
 				{
 					// Only do the mention when the user is able to read the forum
-					$this->mention_data[] = (int)$row['user_id'];
+					$this->mention_data[] = (int) $row['user_id'];
 				}
 			}
 		}
 	}
-	function submit_post($event)
+
+	public function submit_post($event)
 	{
 		if (sizeof($this->mention_data))
 		{
@@ -362,6 +366,7 @@ class main_listener implements EventSubscriberInterface
 				'poster_id'         => $this->user->data['user_id'],
 				'post_id'           => $event['data']['post_id'],
 				'topic_id'          => $event['data']['topic_id'],
+				'topic_title'		=> $event['data']['topic_title'],
 			],
 			[
 				'user_ids'		    => $this->mention_data,

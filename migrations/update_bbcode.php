@@ -26,7 +26,8 @@ class update_bbcode extends container_aware_migration
 			array('custom', array(array($this, 'update_bbcodes'))),
 		);
 	}
-	public function update_bbcodes() {
+	public function update_bbcodes()
+	{
 		$install = new bbcodes_installer($this->db, $this->container->get('request'), $this->container->get('user'), $this->phpbb_root_path, $this->php_ext);
 		$install->install_bbcodes([
 			'mention' => [

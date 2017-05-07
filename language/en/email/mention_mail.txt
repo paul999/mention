@@ -2,9 +2,9 @@ Subject: You have been mentioned
 
 Hello,
 
-You just have been mentioned by "{USERNAME}" at "{SITENAME}".
+You were just mentioned by "{USERNAME}" in "{TOPIC_TITLE}" at "{SITENAME}".
 
-To view the post you have been mentioned in use this link:
+To view the post you were mentioned in use this link:
 {U_LINK_TO_TOPIC}
 
 {EMAIL_SIG}

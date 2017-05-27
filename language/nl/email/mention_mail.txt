@@ -1,0 +1,10 @@
+Subject: Je bent genoemd
+
+Hallo,
+
+Je bent genoemd door "{USERNAME}" in "{TOPIC_TITLE}" at "{SITENAME}".
+
+Om het onderwerp te zien waarin je genoemd bent, gebruik dan deze link:
+{U_LINK_TO_TOPIC}
+
+{EMAIL_SIG}

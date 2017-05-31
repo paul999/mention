@@ -2,9 +2,9 @@ Subject: Je bent genoemd
 
 Hallo,
 
-Je bent genoemd door "{USERNAME}" in "{TOPIC_TITLE}" at "{SITENAME}".
+Je bent genoemd door "{USERNAME}" in "{TOPIC_TITLE}" op "{SITENAME}".
 
-Om het onderwerp te zien waarin je genoemd bent, gebruik dan deze link:
+Als je het onderwerp wilt bekijken, waarin je genoemd bent, klik op de volgende link:
 {U_LINK_TO_TOPIC}
 
 {EMAIL_SIG}

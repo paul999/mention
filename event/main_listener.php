@@ -351,7 +351,8 @@ class main_listener implements EventSubscriberInterface
 		{
 			$this->mention_data = [];
 
-			$local_auth = new auth($userdata[$row['poster_id']]);
+			$local_auth = new auth();
+			$local_auth->acl($userdata[$row['poster_id']]);
 
 			if (!$local_auth->acl_get('u_can_mention'))
 			{

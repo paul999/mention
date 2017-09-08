@@ -304,11 +304,6 @@ class main_listener implements EventSubscriberInterface
 			return;
 		}
 
-		if ($event['data']['post_visibility'] != ITEM_APPROVED)
-		{
-			return;
-		}
-
 		$this->parse_message($event['data']['message'], $event['data']['forum_id']);
 	}
 
@@ -382,7 +377,7 @@ class main_listener implements EventSubscriberInterface
 
 	public function submit_post($event)
 	{
-		if (sizeof($this->mention_data))
+		if ($event['post_visibility'] == ITEM_APPROVED && sizeof($this->mention_data))
 		{
 			$data = $event['data'];
 			$data['username'] = $this->user->data['username'];

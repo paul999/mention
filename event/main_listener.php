@@ -351,7 +351,7 @@ class main_listener implements EventSubscriberInterface
 		{
 			$this->mention_data = [];
 
-			$local_auth = new auth($users[$row['poster_id']]);
+			$local_auth = new auth($userdata[$row['poster_id']]);
 
 			if (!$local_auth->acl_get('u_can_mention'))
 			{
@@ -363,7 +363,7 @@ class main_listener implements EventSubscriberInterface
 			{
 				$insert = [
 					'post_id'       => $row['post_id'],
-					'username'      => $users[$row['poster_id']]['username'],
+					'username'      => $userdata[$row['poster_id']]['username'],
 					'user_id'       => $row['poster_id'],
 					'topic_id'      => $row['topic_id'],
 					'topic_title'   => $row['topic_title'],

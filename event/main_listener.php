@@ -337,7 +337,7 @@ class main_listener implements EventSubscriberInterface
 		while ($row = $this->db->sql_fetchrow($result))
 		{
 			$data[] = $row;
-			$users[] = $row['poster_id'];
+			$users[] = (int) $row['poster_id'];
 		}
 		$this->db->sql_freeresult($result);
 
@@ -422,7 +422,7 @@ class main_listener implements EventSubscriberInterface
 		{
 			if (!in_array($row['user_id'], $mentions))
 			{
-				$mentions[] = (int)$row['user_id'];
+				$mentions[] = (int) $row['user_id'];
 				$data[] = $row;
 			}
 		}

@@ -358,7 +358,7 @@ class main_listener implements EventSubscriberInterface
 			{
 				continue;
 			}
-			$this->parse_message($row['post_text'], $row['forum_id']);
+			$this->parse_message($row['post_text'], $row['forum_id'], false);
 
 			if (sizeof($this->mention_data))
 			{
@@ -387,11 +387,12 @@ class main_listener implements EventSubscriberInterface
 		}
 	}
 
-	/**
-	 * @param string $message
-	 * @param int $forum_id
-	 */
-	private function parse_message($message, $forum_id)
+    /**
+     * @param string $message
+     * @param int $forum_id
+     * @param bool $current
+     */
+	private function parse_message($message, $forum_id, $current = true)
 	{
 		$matches = [];
 		if (preg_match_all($this->regex, $message, $matches, PREG_OFFSET_CAPTURE) === 0)
@@ -428,7 +429,7 @@ class main_listener implements EventSubscriberInterface
 		{
 			foreach ($data as $index => $row)
 			{
-				if ($this->user->data['user_id'] == $row['user_id'])
+				if ($current && $this->user->data['user_id'] == $row['user_id'])
 				{
 					continue; // Do not send notification to current user.
 				}

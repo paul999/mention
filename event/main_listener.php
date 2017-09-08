@@ -387,11 +387,11 @@ class main_listener implements EventSubscriberInterface
 		}
 	}
 
-    /**
-     * @param string $message
-     * @param int $forum_id
-     * @param bool $current
-     */
+	/**
+	 * @param string $message
+	 * @param int $forum_id
+	 * @param bool $current
+	 */
 	private function parse_message($message, $forum_id, $current = true)
 	{
 		$matches = [];

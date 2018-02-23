@@ -4,7 +4,6 @@ var decodeHTMLEntities = (function() {
     function decodeEntities (str) {
         txt.innerHTML = str;
         str = txt.value;
-        txt.value = '';
 
         return str;
     }

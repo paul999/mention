@@ -1,3 +1,17 @@
+var decodeHTMLEntities = (function() {
+    var txt = document.createElement('textarea');
+
+    function decodeEntities (str) {
+        txt.innerHTML = str;
+        str = txt.value;
+        txt.value = '';
+
+        return str;
+    }
+
+    return decodeEntities;
+})();
+
 $(document).ready(function() {
     $('[name="message"]').atwho({
         at: "@",
@@ -24,6 +38,9 @@ $(document).ready(function() {
                 var regexp = new XRegExp('(\\s+|^)' + flag + '([\\p{L}-_ ]+)', 'gi');
                 var match = regexp.exec(subtext);
                 return (match != null && match[2]) ? match[2] : null;
+            },
+            beforeInsert: function(value, $li, e) {
+                return decodeHTMLEntities(value);
             }
         }
     });

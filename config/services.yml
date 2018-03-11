@@ -18,7 +18,6 @@ services:
             - '@auth'
             - '@config'
             - '%core.php_ext%'
-            - '@language'
             - '@user_loader'
         tags:
             - { name: event.listener }

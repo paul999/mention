@@ -21,7 +21,6 @@ use phpbb\db\driver\driver_interface;
 use phpbb\notification\manager;
 use phpbb\template\template;
 use phpbb\user;
-use phpbb\language\language;
 use phpbb\user_loader;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -78,10 +77,6 @@ class main_listener implements EventSubscriberInterface
 	 */
 	private $php_ext;
 	/**
-	 * @var \phpbb\language\language
-	 */
-	private $language;
-	/**
 	 * @var \phpbb\user_loader
 	 */
 	private $user_loader;
@@ -99,7 +94,7 @@ class main_listener implements EventSubscriberInterface
 	 * @param string $php_ext
 	 * @internal param viewonline_helper $viewonline_helper
 	 */
-	public function __construct(helper $helper, template $template, driver_interface $db, manager $notification_manager, user $user, auth $auth, config $config, $php_ext, language $language, user_loader $user_loader)
+	public function __construct(helper $helper, template $template, driver_interface $db, manager $notification_manager, user $user, auth $auth, config $config, $php_ext, user_loader $user_loader)
 	{
 		$this->helper = $helper;
 		$this->template = $template;
@@ -109,7 +104,6 @@ class main_listener implements EventSubscriberInterface
 		$this->auth = $auth;
 		$this->config = $config;
 		$this->php_ext = $php_ext;
-		$this->language = $language;
 		$this->user_loader = $user_loader;
 	}
 

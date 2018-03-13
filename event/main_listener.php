@@ -472,8 +472,12 @@ class main_listener implements EventSubscriberInterface
 
 	public function prepare_render_mentionbbcode($event)
 	{
+		if(strlen($event['html']) == 0) {
+			return;
+		}
+
 		$document = new \DOMDocument();
-		$document->loadHTML($event['html']);
+		$document->loadHTML('<html><body>' . $event['html'] . '</body></html>');
 
 		$xpath = new \DOMXPath($document);
 		$nodes = $xpath->query("//span[@class='mention']");
@@ -482,13 +486,12 @@ class main_listener implements EventSubscriberInterface
 			$userid = $this->user_loader->load_user_by_username(substr(trim($node->nodeValue), 1));
 			if ($userid != ANONYMOUS)
 			{
-				$html = '<span class="mention">@' . $this->user_loader->get_username($userid, 'full', false, false, true) . '</span>';
 				$d = new \DOMDocument();
-				$d->loadHTML($html);
-				$node->parentNode->replaceChild($document->importNode($d->documentElement, true), $node);
+				$d->loadHTML('<html><body><span class="mention">@' . $this->user_loader->get_username($userid, 'full', false, false, true) . '</span></body></html>');
+				$node->parentNode->replaceChild($document->importNode($d->getElementsByTagName('body')[0], true), $node);
 			}
 		}
 
-		$event['html'] = utf8_decode($document->saveHTML($document->documentElement));
+		$event['html'] = utf8_decode($document->saveHTML($document->getElementsByTagName('body')[0]));
 	}
 }

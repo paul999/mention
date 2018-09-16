@@ -361,7 +361,7 @@ class main_listener implements EventSubscriberInterface
 			}
 			$this->parse_message($row['post_text'], $row['forum_id'], false);
 
-			if (sizeof($this->mention_data))
+			if (count($this->mention_data))
 			{
 				$insert = [
 					'post_id'       => $row['post_id'],
@@ -379,7 +379,7 @@ class main_listener implements EventSubscriberInterface
 
 	public function submit_post($event)
 	{
-		if ($event['post_visibility'] == ITEM_APPROVED && sizeof($this->mention_data))
+		if ($event['post_visibility'] == ITEM_APPROVED && count($this->mention_data))
 		{
 			$data = $event['data'];
 			$data['username'] = $this->user->data['username'];
@@ -404,7 +404,7 @@ class main_listener implements EventSubscriberInterface
 		$mentions = [];
 		$data = [];
 
-		for ($i = 0; $i < sizeof($matches[1]); $i++)
+		for ($i = 0; $i < count($matches[1]); $i++)
 		{
 			$data[] = utf8_clean_string($matches[1][$i][0]);
 		}
@@ -426,7 +426,7 @@ class main_listener implements EventSubscriberInterface
 		}
 		$this->db->sql_freeresult($result);
 
-		if (sizeof($data))
+		if (count($data))
 		{
 			foreach ($data as $index => $row)
 			{

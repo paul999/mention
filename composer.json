@@ -3,8 +3,8 @@
     "type": "phpbb-extension",
     "description": "Mention a user by using @USERNAME",
     "homepage": "https://www.phpbbextensions.io",
-    "version": "1.0.2",
-    "time": "2017-05-07",
+    "version": "1.0.3",
+    "time": "2018-09-16",
     "license": "GPL-2.0",
     "authors": [
         {

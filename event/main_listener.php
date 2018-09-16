@@ -114,6 +114,7 @@ class main_listener implements EventSubscriberInterface
 			'core.text_formatter_s9e_parse_before'  => 'permissions',
 			'core.posting_modify_template_vars'     => 'remove_mention_in_quote',
 			'core.markread_before'                  => 'mark_read',
+			'rxu.postsmerging.posts_merging_end'	=> 'submit_post',
 		];
 	}
 

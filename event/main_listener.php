@@ -379,7 +379,7 @@ class main_listener implements EventSubscriberInterface
 
 	public function submit_post($event)
 	{
-		if ($event['post_visibility'] == ITEM_APPROVED && count($this->mention_data))
+		if ($event['post_visibility'] == ITEM_APPROVED && isset($this->mention_data))
 		{
 			$data = $event['data'];
 			$data['username'] = $this->user->data['username'];

@@ -21,7 +21,7 @@ $(document).ready(function() {
                 }
             },
             matcher: function(flag, subtext) {
-                var regexp = new XRegExp('(\\s+|^)' + flag + '([\\p{L}-_ ]+)', 'gi');
+                var regexp = new XRegExp('(\\s+|^)' + flag + '([\\p{L}-_ 0-9]+)', 'gi');
                 var match = regexp.exec(subtext);
                 return (match != null && match[2]) ? match[2] : null;
             }

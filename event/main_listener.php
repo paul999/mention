@@ -116,6 +116,8 @@ class main_listener implements EventSubscriberInterface
 			'core.markread_before'                  => 'mark_read',
 			'rxu.postsmerging.posts_merging_end'	=> 'submit_post',
 			'core.acp_board_config_edit_add'        => 'acp_board_settings',
+			'core.validate_config_variable'         => 'validate_config',
+			'core.page_header'                      => 'page_header',
 		];
 	}
 
@@ -194,18 +196,53 @@ class main_listener implements EventSubscriberInterface
 	{
 		if ($event['mode'] === 'post')
 		{
+			$this->user->add_lang('acp_common', false, false, 'paul999/mention');
 			$display_vars = $event['display_vars'];
-			$pws_config_vars = array(
-				'simple_mention_minlength' => array(
+			$sm_config_vars = [
+				'simple_mention_minlength' => [
 					'lang'		=> 'MENTION_LENGTH',
 					'validate'	=> 'int',
 					'type'		=> 'number:1:9999',
-					'explain'	=> true
-				),
-			);
-			$display_vars['vars'] = phpbb_insert_config_array($display_vars['vars'], $pws_config_vars, array('after' => 'allow_quick_reply'));
+					'explain'	=> true,
+				],
+				'simple_mention_color'  => [
+					'lang'      => 'MENTION_COLOR',
+					'validate'  => 'mention_hex',
+					'type'      => 'text:6:6',
+					'explain'   => true,
+				],
+			];
+			$display_vars['vars'] = phpbb_insert_config_array($display_vars['vars'], $sm_config_vars, array('after' => 'allow_quick_reply'));
 			$event['display_vars'] = $display_vars;
 		}
+	}
+
+	/**
+	 * Validate the simple mention hex color
+	 * @param \phpbb\event\data $event Event data
+	 */
+	public function validate_config($event)
+	{
+		if($event['config_definition']['validate'] === 'mention_hex')
+		{
+			$value = $event['cfg_array'][$event['config_name']];
+			if (!preg_match("/([a-f0-9]{3}){1,2}\b/i", $value)) {
+				$error = $event['error'];
+				$error[] = sprintf($this->user->lang('MENTION_COLOR_INVALID'), $value);
+				$event['error'] = $error;
+			}
+		}
+	}
+
+	/**
+	 * Set the mention color on pages.
+	 * @param \phpbb\event\data $event
+	 */
+	public function page_header($event)
+	{
+		$this->template->assign_vars([
+			'MENTION_COLOR' => $this->config['simple_mention_color'],
+		]);
 	}
 
 	/**

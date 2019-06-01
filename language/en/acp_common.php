@@ -6,7 +6,6 @@
  * @copyright (c) 2016, paul999, https://www.phpbbextensions.io
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
- * Translated by Bassel Taha Alhitary - www.alhitary.net
  */
 
 if (!defined('IN_PHPBB'))
@@ -25,6 +24,10 @@ if (empty($lang) || !is_array($lang))
  * language items (That are directly needed by the notification system) in this file.
  */
 $lang = array_merge($lang, array(
-	'MENTION_MENTION_NOTIFICATION'	=> 'تمت الإشارة اليك بواسطة %1$s<br />في “%2$s”',
-	'NOTIFICATION_TYPE_MENTION'     => 'شخص أشار لي بمنشور',
+	'MENTION_LENGTH'                => 'Simple mention minimum length',
+	'MENTION_LENGTH_EXPLAIN'        => 'The minimum text length before the simple mention dropdown is shown. 
+	On larger boards you might want to increase this value.',
+	'MENTION_COLOR'                 => 'Simple mention color',
+	'MENTION_COLOR_EXPLAIN'         => 'This color is used within the post to define what user is mentioned. Only hex values can be used.',
+	'MENTION_COLOR_INVALID'         => 'The selected mention color (%s) is invalid. Please select a valid HEX color, without #',
 ));

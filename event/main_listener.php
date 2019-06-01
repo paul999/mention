@@ -179,7 +179,7 @@ class main_listener implements EventSubscriberInterface
 			break;
 
 			case 'topic':
-				$this->mark_topic_tead($event['topic_id'], $event['post_time']);
+				$this->mark_topic_read($event['topic_id'], $event['post_time']);
 			break;
 		}
 	}
@@ -200,7 +200,7 @@ class main_listener implements EventSubscriberInterface
 	 * @param int|array $topic_id
 	 * @param int $post_time
 	 */
-	private function mark_topic_tead($topic_id, $post_time)
+	private function mark_topic_read($topic_id, $post_time)
 	{
 		$this->notification_manager->mark_notifications_by_parent(array(
 			'paul999.mention.notification.type.mention',
@@ -239,7 +239,7 @@ class main_listener implements EventSubscriberInterface
 		}
 		$this->db->sql_freeresult($result);
 
-		$this->mark_topic_tead($topic_ids, $post_time);
+		$this->mark_topic_read($topic_ids, $post_time);
 	}
 
 	/**

@@ -115,7 +115,7 @@ class main_listener implements EventSubscriberInterface
 			'core.posting_modify_template_vars'     => 'remove_mention_in_quote',
 			'core.markread_before'                  => 'mark_read',
 			'rxu.postsmerging.posts_merging_end'	=> 'submit_post',
-            'core.acp_board_config_edit_add'        => 'acp_board_settings',
+			'core.acp_board_config_edit_add'        => 'acp_board_settings',
 		];
 	}
 
@@ -185,28 +185,28 @@ class main_listener implements EventSubscriberInterface
 		}
 	}
 
-    /**
-     * Add settings to the ACP page.
-     *
-     * @param \phpbb\event\data $event The event object
-     */
-    public function acp_board_settings($event)
-    {
-        if ($event['mode'] === 'post')
-        {
-            $display_vars = $event['display_vars'];
-            $pws_config_vars = array(
-                'simple_mention_minlength' => array(
-                    'lang'		=> 'MENTION_LENGTH',
-                    'validate'	=> 'int',
-                    'type'		=> 'number:1:9999',
-                    'explain'	=> true
-                ),
-            );
-            $display_vars['vars'] = phpbb_insert_config_array($display_vars['vars'], $pws_config_vars, array('after' => 'allow_quick_reply'));
-            $event['display_vars'] = $display_vars;
-        }
-    }
+	/**
+	 * Add settings to the ACP page.
+	 *
+	 * @param \phpbb\event\data $event The event object
+	 */
+	public function acp_board_settings($event)
+	{
+		if ($event['mode'] === 'post')
+		{
+			$display_vars = $event['display_vars'];
+			$pws_config_vars = array(
+				'simple_mention_minlength' => array(
+					'lang'		=> 'MENTION_LENGTH',
+					'validate'	=> 'int',
+					'type'		=> 'number:1:9999',
+					'explain'	=> true
+				),
+			);
+			$display_vars['vars'] = phpbb_insert_config_array($display_vars['vars'], $pws_config_vars, array('after' => 'allow_quick_reply'));
+			$event['display_vars'] = $display_vars;
+		}
+	}
 
 	/**
 	 * Mark all notifications as read

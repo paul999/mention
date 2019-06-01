@@ -25,5 +25,9 @@ if (empty($lang) || !is_array($lang))
  */
 $lang = array_merge($lang, array(
 	'MENTION_MENTION_NOTIFICATION'	=> 'Sie wurden von %1$s in “%2$s” erwähnt',
-	'NOTIFICATION_TYPE_MENTION'     => 'Jemand hat Sie erwähnt'
+	'NOTIFICATION_TYPE_MENTION'     => 'Jemand hat Sie erwähnt',
+
+	'MENTION_LENGTH'                => 'Simple mention minimum length',
+	'MENTION_LENGTH_EXPLAIN'        => 'The minimum text length before the simple mention dropdown is shown. 
+	On larger boards you might want to increase this value.'
 ));

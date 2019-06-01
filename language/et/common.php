@@ -26,5 +26,9 @@ if (empty($lang) || !is_array($lang))
  */
 $lang = array_merge($lang, array(
 	'MENTION_MENTION_NOTIFICATION'	=> 'Sind mainiti kasutaja %1$s poolt<br />teemas “%2$s”',
-	'NOTIFICATION_TYPE_MENTION'     => 'Sind on mainitud'
+	'NOTIFICATION_TYPE_MENTION'     => 'Sind on mainitud',
+
+	'MENTION_LENGTH'                => 'Simple mention minimum length',
+	'MENTION_LENGTH_EXPLAIN'        => 'The minimum text length before the simple mention dropdown is shown. 
+	On larger boards you might want to increase this value.'
 ));

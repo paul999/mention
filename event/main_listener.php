@@ -223,10 +223,11 @@ class main_listener implements EventSubscriberInterface
 	 */
 	public function validate_config($event)
 	{
-		if($event['config_definition']['validate'] === 'mention_hex')
+		if ($event['config_definition']['validate'] === 'mention_hex')
 		{
 			$value = $event['cfg_array'][$event['config_name']];
-			if (!preg_match("/([a-f0-9]{3}){1,2}\b/i", $value)) {
+			if (!preg_match("/([a-f0-9]{3}){1,2}\b/i", $value))
+			{
 				$error = $event['error'];
 				$error[] = sprintf($this->user->lang('MENTION_COLOR_INVALID'), $value);
 				$event['error'] = $error;

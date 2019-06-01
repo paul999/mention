@@ -25,5 +25,5 @@ if (empty($lang) || !is_array($lang))
  */
 $lang = array_merge($lang, array(
 	'MENTION_MENTION_NOTIFICATION'	=> 'Usted fue mencionado por %1$s<br />en “%2$s”',
-	'NOTIFICATION_TYPE_MENTION'     => 'Alguien le mencionó'
+	'NOTIFICATION_TYPE_MENTION'     => 'Alguien le mencionó',
 ));

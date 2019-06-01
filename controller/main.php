@@ -74,7 +74,7 @@ class main
 
 		if (strlen($name) < 2)
 		{
-			return new JsonResponse(['usernames' => []]);
+			return new JsonResponse([]);
 		}
 
 		$sql = 'SELECT user_id, username 
@@ -88,9 +88,9 @@ class main
 		while ($row = $this->db->sql_fetchrow($result))
 		{
 			$return[] = [
-				'name'  => $row['username'],
-				'id'    => $row['user_id'],
-			];
+			    'key'       =>$row['username'],
+                'value'     => $row['username'],
+            ];
 		}
 		$this->db->sql_freeresult($result);
 		return new JsonResponse($return);

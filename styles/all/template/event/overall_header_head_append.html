@@ -5,6 +5,6 @@
 <!-- INCLUDECSS @paul999_mention/mention.css -->
 <style type="text/css">
     .mention {
-        color: #{MENTION_COLOR};
+        color: #{{ MENTION_COLOR|e('css') }};
     }
 </style>

@@ -19,7 +19,7 @@ $(document).ready(function () {
             },
 
             values: function (text, cb) {
-                remoteSearch(text, users => cb(users));
+                remoteSearch(text, cb);
             },
             spaceSelectsMatch: true,
         }]

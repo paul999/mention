@@ -5,6 +5,7 @@
  *
  * @copyright (c) 2016, paul999, https://www.phpbbextensions.io
  * @license GNU General Public License, version 2 (GPL-2.0)
+ * Estonian translation by phpBBeesti.net
  *
  */
 
@@ -24,6 +25,6 @@ if (empty($lang) || !is_array($lang))
  * language items (That are directly needed by the notification system) in this file.
  */
 $lang = array_merge($lang, array(
-	'MENTION_MENTION_NOTIFICATION'	=> 'Sie wurden von %1$s in “%2$s” erwähnt',
-	'NOTIFICATION_TYPE_MENTION'     => 'Jemand hat Sie erwähnt',
+	'MENTION_MENTION_NOTIFICATION'	=> 'Sind mainiti kasutaja %1$s poolt<br />teemas “%2$s”',
+	'NOTIFICATION_TYPE_MENTION'     => 'Sind on mainitud',
 ));

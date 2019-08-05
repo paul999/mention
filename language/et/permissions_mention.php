@@ -1,17 +1,17 @@
 <?php
 /**
-*
-* Simple mentions extension for the phpBB Forum Software package.
-* French translation by Galixte (http://www.galixte.com)
-*
-* @copyright (c) 2017 paul999 <https://www.phpbbextensions.io>
-* @license GNU General Public License, version 2 (GPL-2.0)
-*
-*/
+ *
+ * phpBB mentions. An extension for the phpBB Forum Software package.
+ *
+ * @copyright (c) 2016, paul999, https://www.phpbbextensions.io
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ * Estonian translation by phpBBeesti.net
+ *
+ */
 
 /**
-* DO NOT CHANGE
-*/
+ * DO NOT CHANGE
+ */
 if (!defined('IN_PHPBB'))
 {
 	exit;
@@ -35,10 +35,12 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 //
 // Some characters you may want to copy&paste:
-// ’ « » “ ” …
+// ’ » “ ” …
 //
 
-$lang = array_merge($lang, array(
-	'MENTION_MENTION_NOTIFICATION'	=> 'Vous avez été mentionné par « %1$s »<br />dans le message « %2$s »',
-	'NOTIFICATION_TYPE_MENTION'     => 'Quelqu’un m’a mentionné',
-));
+$lang = array_merge(
+	$lang, array(
+		'ACL_U_CAN_MENTION'      => 'Saab kasutada mainimiste süsteemi',
+
+	)
+);

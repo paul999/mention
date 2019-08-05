@@ -6,7 +6,7 @@
  * @copyright (c) 2016, paul999, https://www.phpbbextensions.io
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
- * Translated by Bassel Taha Alhitary - www.alhitary.net
+ * Translated By : Bassel Taha Alhitary <http://alhitary.net>
  */
 
 /**
@@ -40,7 +40,7 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge(
 	$lang, array(
-		'ACL_U_CAN_MENTION'      => 'يستطيع استخدام نظام الإشارة للأعضاء',
+		'ACL_U_CAN_MENTION'      => 'يستطيع استخدام نظام “الإشارة للأعضاء”',
 
 	)
 );

@@ -6,7 +6,7 @@
  * @copyright (c) 2016, paul999, https://www.phpbbextensions.io
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
- * Translated by Bassel Taha Alhitary - www.alhitary.net
+ * Translated By : Bassel Taha Alhitary <http://alhitary.net>
  */
 
 if (!defined('IN_PHPBB'))
@@ -26,5 +26,5 @@ if (empty($lang) || !is_array($lang))
  */
 $lang = array_merge($lang, array(
 	'MENTION_MENTION_NOTIFICATION'	=> 'تمت الإشارة اليك بواسطة %1$s<br />في “%2$s”',
-	'NOTIFICATION_TYPE_MENTION'     => 'شخص أشار لي بمنشور'
+	'NOTIFICATION_TYPE_MENTION'     => 'أحد الأعضاء أشار لي'
 ));

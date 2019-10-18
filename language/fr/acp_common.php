@@ -46,7 +46,7 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
 	'MENTION_LENGTH'                => 'Longueur minimale du texte pour afficher les suggestions de membres à mentionner',
 	'MENTION_LENGTH_EXPLAIN'        => 'Permet de définir le nombre minimum de caractères à saisir avant d’afficher le menu déroulant suggérant les membres à mentionner.
-	Sur les forums volumineux il est recommandé cette valeur.',
+	Pour les forums volumineux il est recommandé d’augmenter cette valeur.',
 	'MENTION_COLOR'                 => 'Couleur de la mention',
 	'MENTION_COLOR_EXPLAIN'         => 'Permet de définir la couleur utilisée pour mentionner l’utilisateur dans le message. Les valeurs acceptées doivent être au format HEXADÉCIMAL.',
 	'MENTION_COLOR_INVALID'         => 'La couleur sélectionnée pour mentionner (%s) est incorrecte. Merci de sélectionner une couleur au format HEXADÉCIMAL, sans le caractère #.',

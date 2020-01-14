@@ -25,9 +25,8 @@ if (empty($lang) || !is_array($lang))
  */
 $lang = array_merge($lang, array(
 	'MENTION_LENGTH'                => 'Minimalna długość nazwy użytkownika',
-	'MENTION_LENGTH_EXPLAIN'        => 'Tutaj można ustawić minimalną długość nazwy użytkownika, którą należy wprowadzić, aby wspomnieć użytkownika.
-	Na większych forach możesz zwiększyć tę wartość.',
+	'MENTION_LENGTH_EXPLAIN'        => 'Tutaj można ustawić minimalną długość nazwy użytkownika, którą należy wprowadzić, aby wspomnieć użytkownika. Na większych forach możesz zwiększyć tę wartość.',
 	'MENTION_COLOR'                 => 'Kolor wzmianki',
-	'MENTION_COLOR_EXPLAIN'         => 'Ten kolor jest używany w poście, aby określić, który użytkownik jest wspomniany. Mogą być użyte tylko wartości szesnastkowe.',
+	'MENTION_COLOR_EXPLAIN'         => 'Ten kolor jest używany w poście, aby określić, który użytkownik został wspomniany. Możesz użyć tylko kolor zapisany w systemie szesnastkowym.',
 	'MENTION_COLOR_INVALID'         => 'Wybrany kolor wzmianki (%s) jest nieprawidłowy. Proszę wybrać prawidłowy kolor HEX bez #',
 ));

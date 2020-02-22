@@ -30,4 +30,6 @@ $lang = array_merge($lang, array(
 	'MENTION_COLOR'                 => 'Simple mention color',
 	'MENTION_COLOR_EXPLAIN'         => 'This color is used within the post to define what user is mentioned. Only hex values can be used.',
 	'MENTION_COLOR_INVALID'         => 'The selected mention color (%s) is invalid. Please select a valid HEX color, without #',
+	'MENTION_MAX_RESULTS'			=> 'Simple mention max results',
+	'MENTION_MAX_RESULTS_EXPLAIN'	=> 'The maximum number of users show in the dropdown. On larger boards you might want to decrease this value',
 ));

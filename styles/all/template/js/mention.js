@@ -17,7 +17,7 @@ $(document).ready(function () {
             },
 
             selectTemplate: function (item) {
-                return '[mention]' + item.original.value + '[/mention]';
+                return '[smention u=' + item.original.user_id + ']' + item.original.value + '[/smention]';
             },
             values: remoteSearch,
             spaceSelectsMatch: true,

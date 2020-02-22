@@ -70,9 +70,9 @@ class main
 	 * get a list of users matching on a username (Minimal 3 chars)
 	 *
 	 *
-	 * @return \Symfony\Component\HttpFoundation\Response A Symfony Response object
+	 * @return JsonResponse A Symfony Response object
 	 */
-	public function handle()
+	public function handle() : JsonResponse
 	{
 		if ($this->user->data['user_id'] == ANONYMOUS || $this->user->data['is_bot'] || !$this->auth->acl_get('u_can_mention'))
 		{
@@ -96,8 +96,9 @@ class main
 		while ($row = $this->db->sql_fetchrow($result))
 		{
 			$return[] = [
-				'key'       =>$row['username'],
+				'key'       => $row['username'],
 				'value'     => $row['username'],
+				'user_id'	=> $row['user_id'],
 			];
 		}
 		$this->db->sql_freeresult($result);

@@ -3,7 +3,7 @@
     "type": "phpbb-extension",
     "description": "Mention a user by using @USERNAME",
     "homepage": "https://www.phpbbextensions.io",
-    "version": "1.0.5",
+    "version": "2.0.0",
     "time": "2019-06-10",
     "license": "GPL-2.0-only",
     "authors": [
@@ -15,14 +15,12 @@
         }
     ],
     "require": {
-        "php": "~5.4|~7.0",
-        "phpbb/phpbb": ">=3.2.0RC1,<3.3.0@dev"
-
+        "php": "~7.1"
     },
     "extra": {
         "display-name": "Simple mentions",
         "soft-require": {
-            "phpbb/phpbb": ">=3.2.0RC1,<3.3.0@dev"
+            "phpbb/phpbb": ">=3.3.0RC1,<3.4.0@dev"
         }
     },
     "require-dev": {

@@ -1,7 +1,9 @@
-var tribute = null;
-
 $(document).ready(function () {
     function remoteSearch(query, callback) {
+        if (query.length < MIN_MENTION_LENGTH) {
+            callback([]);
+            return;
+        }
         $.getJSON(U_AJAX_MENTION_URL, {q: query}, function (data) {
             callback(data)
         });
@@ -11,6 +13,7 @@ $(document).ready(function () {
         collection: [{
             trigger: '@',
             menuItemTemplate: function (item) {
+                console.log(item);
                 return item.string;
             },
 

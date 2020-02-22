@@ -312,7 +312,8 @@ class main_listener implements EventSubscriberInterface
 		if ($this->auth->acl_get('u_can_mention'))
 		{
 			$this->template->assign_vars([
-			   'UA_AJAX_MENTION_URL'    => $this->helper->route('paul999_mention_controller'),
+			   'U_AJAX_MENTION_URL'		=> $this->helper->route('paul999_mention_controller'),
+			   'MIN_MENTION_LENGTH'		=> $this->config['simple_mention_minlength'],
 			]);
 		}
 	}

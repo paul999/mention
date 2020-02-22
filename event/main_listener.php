@@ -477,7 +477,8 @@ class main_listener implements EventSubscriberInterface
 		$this->mention_data = [];
 
 		// Old style BBCode.
-		if (preg_match_all('#\[mention\]<\/s>(.*?)<e>\[\/mention\]#', $message, $matches, PREG_OFFSET_CAPTURE) !== 0) {
+		if (preg_match_all('#\[mention\]<\/s>(.*?)<e>\[\/mention\]#', $message, $matches, PREG_OFFSET_CAPTURE) !== 0)
+		{
 			$data = [];
 
 			for ($i = 0; $i < count($matches[1]); $i++)
@@ -495,7 +496,8 @@ class main_listener implements EventSubscriberInterface
 		}
 
 		$matches = [];
-		if (preg_match_all('#\[smention u=([0-9]+)\]<\/s>(.*?)<e>\[\/smention\]#', $message, $matches, PREG_OFFSET_CAPTURE) !== 0) {
+		if (preg_match_all('#\[smention u=([0-9]+)\]<\/s>(.*?)<e>\[\/smention\]#', $message, $matches, PREG_OFFSET_CAPTURE) !== 0)
+		{
 			$data = [];
 
 			for ($i = 0; $i < count($matches[1]); $i++)
@@ -522,9 +524,11 @@ class main_listener implements EventSubscriberInterface
 	{
 		$data = [];
 
-		while ($row = $this->db->sql_fetchrow($result)) {
-			if (!in_array($row['user_id'], $mentions)) {
-				$mentions[] = (int)$row['user_id'];
+		while ($row = $this->db->sql_fetchrow($result))
+		{
+			if (!in_array($row['user_id'], $mentions))
+			{
+				$mentions[] = (int) $row['user_id'];
 				$data[] = $row;
 			}
 		}
@@ -542,7 +546,8 @@ class main_listener implements EventSubscriberInterface
 				{
 					continue; // Do not send notification to current user.
 				}
-				if (!isset($authCache[$row['user_id']])) {
+				if (!isset($authCache[$row['user_id']]))
+				{
 					// Not cached yet.
 					$auth = new auth();
 					$auth->acl($row);

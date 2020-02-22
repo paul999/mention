@@ -10,7 +10,6 @@
 
 namespace paul999\mention\migrations;
 
-use paul999\mention\core\bbcodes_installer;
 use phpbb\db\migration\container_aware_migration;
 
 class add_bbcode extends container_aware_migration

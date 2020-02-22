@@ -104,7 +104,8 @@ class main
 		}
 		$this->db->sql_freeresult($result);
 
-		if ($this->auth->acl_get('u_can_mention_groups')) {
+		if ($this->auth->acl_get('u_can_mention_groups'))
+		{
 			// We can mention groups. So also add that to the list.
 
 			$sql = 'SELECT COUNT(ug.user_id) as cnt, g.group_name, g.group_id, g.group_type
@@ -123,7 +124,8 @@ class main
 
 			while ($row = $this->db->sql_fetchrow($result))
 			{
-				if ($row['cnt'] > $this->config['simple_mention_large_groups'] && !$this->auth->acl_get('u_can_mention_large_groups')) {
+				if ($row['cnt'] > $this->config['simple_mention_large_groups'] && !$this->auth->acl_get('u_can_mention_large_groups'))
+				{
 					// User can't send mentions to large groups.
 					continue;
 				}

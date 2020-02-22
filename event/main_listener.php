@@ -480,7 +480,8 @@ class main_listener implements EventSubscriberInterface
 	 */
 	private function parse_message($message, $forum_id, $current = true, auth $local_auth = null)
 	{
-		if($local_auth === null) {
+		if ($local_auth === null)
+		{
 			$local_auth = $this->auth;
 		}
 		$matches = [];
@@ -535,7 +536,8 @@ class main_listener implements EventSubscriberInterface
 				$data[] = $matches[1][$i][0];
 			}
 
-			if (!$local_auth->acl_get('u_can_mention_large_groups')) {
+			if (!$local_auth->acl_get('u_can_mention_large_groups'))
+			{
 				// User can only mention small groups. We need to check if the specified group is small.
 				$sql = 'SELECT COUNT(user_id) as cnt, group_id  
 				FROM ' . USER_GROUP_TABLE . ' g

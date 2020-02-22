@@ -13,7 +13,6 @@ $(document).ready(function () {
         collection: [{
             trigger: '@',
             menuItemTemplate: function (item) {
-                console.log(item);
                 return item.string;
             },
 

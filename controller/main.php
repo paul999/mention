@@ -89,7 +89,7 @@ class main
 					FROM ' . USERS_TABLE . ' 
 					WHERE user_id <> ' . ANONYMOUS . ' 
 					AND ' . $this->db->sql_in_set('user_type', [USER_NORMAL, USER_FOUNDER]) .  '
-					AND username_clean ' . $this->db->sql_like_expression($name . $this->db->get_any_char());
+					AND username_clean ' . $this->db->sql_like_expression($this->db->get_any_char() . $name . $this->db->get_any_char());
 		$result = $this->db->sql_query($sql);
 		$return = [];
 

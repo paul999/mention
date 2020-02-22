@@ -19,10 +19,7 @@ $(document).ready(function () {
             selectTemplate: function (item) {
                 return '[mention]' + item.original.value + '[/mention]';
             },
-
-            values: function (text, cb) {
-                remoteSearch(text, cb);
-            },
+            values: remoteSearch,
             spaceSelectsMatch: true,
         }]
     });

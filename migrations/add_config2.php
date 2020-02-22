@@ -10,17 +10,17 @@
 
 namespace paul999\mention\migrations;
 
-class version_200 extends \phpbb\db\migration\migration
+class add_config2 extends \phpbb\db\migration\migration
 {
-
 	static public function depends_on()
 	{
-		return array(
-			'\paul999\mention\migrations\version_100rc2',
-			'\paul999\mention\migrations\add_config',
-			'\paul999\mention\migrations\add_config2',
-			'\phpbb\db\migration\data\v330\v330',
-		);
+		return array('\paul999\mention\migrations\add_config');
 	}
 
+	public function update_data()
+	{
+		return [
+			['config.add', ['simple_mention_maxresults', '50', false]],
+		];
+	}
 }

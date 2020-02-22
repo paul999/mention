@@ -205,6 +205,12 @@ class main_listener implements EventSubscriberInterface
 					'type'		=> 'number:1:9999',
 					'explain'	=> true,
 				],
+				'simple_mention_maxresults' => [
+					'lang'		=> 'MENTION_MAX_RESULTS',
+					'validate'	=> 'int',
+					'type'		=> 'number:1:9999',
+					'explain'	=> true,
+				],
 				'simple_mention_color'  => [
 					'lang'      => 'MENTION_COLOR',
 					'validate'  => 'mention_hex',

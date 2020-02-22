@@ -26,4 +26,5 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
 	'MENTION_MENTION_NOTIFICATION'	=> 'Byl jsi zmíněn od %1$s<br />v “%2$s”',
 	'NOTIFICATION_TYPE_MENTION'     => 'Někdo mě zmínil',
+	'MENTION_GROUP_NAME'			=> '(Group. Will notify {CNT} users in total)', // Do not translate/change {CNT}
 ));

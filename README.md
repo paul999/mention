@@ -6,7 +6,7 @@ Copy the extension to phpBB/ext/paul999/mention
 
 Go to "ACP" > "Customise" > "Extensions" and enable the "phpBB mentions" extension.
 
-**Please note that this extension requires phpBB 3.2!**
+**Please note that this extension requires phpBB 3.3 and at least php 7.1! If you use phpBB 3.2, you should use 1.0.x instead.**
 
 ## Tests and Continuous Integration
 

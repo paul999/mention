@@ -1,8 +1,7 @@
-<!-- IF UA_AJAX_MENTION_URL and not $INCLUDED_TRIBUTECSS -->
-<!-- INCLUDECSS @paul999_mention/tribute.css -->
-<!-- DEFINE $INCLUDED_TRIBUTECSS = true -->
-<!-- ENDIF -->
-<!-- INCLUDECSS @paul999_mention/mention.css -->
+{% if U_AJAX_MENTION_URL %}
+    {% INCLUDECSS '@paul999_mention/tribute.css' %}
+{% endif %}
+{% INCLUDECSS '@paul999_mention/mention.css' %}
 <style type="text/css">
     .mention {
         color: #{{ MENTION_COLOR|e('css') }};

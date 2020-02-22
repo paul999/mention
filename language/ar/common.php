@@ -27,4 +27,5 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
 	'MENTION_MENTION_NOTIFICATION'	=> 'تمت الإشارة اليك بواسطة %1$s<br />في “%2$s”',
 	'NOTIFICATION_TYPE_MENTION'     => 'شخص أشار لي بمنشور',
+	'MENTION_GROUP_NAME'			=> '(Group. Will notify {CNT} users in total)', // Do not translate/change {CNT}
 ));

@@ -18,11 +18,6 @@ if (empty($lang) || !is_array($lang))
 	$lang = array();
 }
 
-/**
- * As there is no proper way of including this file just when the notification is
- * loaded we need to include it on all pages. Make sure to only include important
- * language items (That are directly needed by the notification system) in this file.
- */
 $lang = array_merge($lang, array(
 	'MENTION_LENGTH'                => 'Longitud mínima de la mención simple',
 	'MENTION_LENGTH_EXPLAIN'        => 'Longitud de texto mínima mostrada antes de la lista desplegable de mención simple. 
@@ -32,4 +27,6 @@ $lang = array_merge($lang, array(
 	'MENTION_COLOR_INVALID'         => 'El color de mención seleccionado (%s) no es válido. Por favor, seleccione un color HEX válido, sin #',
 	'MENTION_MAX_RESULTS'			=> 'Simple mention max results',
 	'MENTION_MAX_RESULTS_EXPLAIN'	=> 'The maximum number of users show in the dropdown. On larger boards you might want to decrease this value',
+	'MENTION_LARGE_GROUPS'			=> 'Mention large group size',
+	'MENTION_LARGE_GROUPS_EXPLAIN'	=> 'If the group has more members as the specified number, the “Can mention large groups” permission is required.'
 ));

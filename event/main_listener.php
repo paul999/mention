@@ -130,6 +130,8 @@ class main_listener implements EventSubscriberInterface
 	{
 		$permissions = $event['permissions'];
 		$permissions['u_can_mention'] = array('lang' => 'ACL_U_CAN_MENTION', 'cat' => 'misc');
+		$permissions['u_can_mention_groups'] = array('lang' => 'ACL_U_CAN_MENTION_GROUPS', 'cat' => 'misc');
+		$permissions['u_can_mention_large_groups'] = array('lang' => 'ACL_U_CAN_MENTION_LARGE_GROUPS', 'cat' => 'misc');
 		$event['permissions'] = $permissions;
 	}
 
@@ -220,6 +222,12 @@ class main_listener implements EventSubscriberInterface
 					'lang'      => 'MENTION_COLOR',
 					'validate'  => 'mention_hex',
 					'type'      => 'text:6:6',
+					'explain'   => true,
+				],
+				'simple_mention_large_groups'  => [
+					'lang'      => 'MENTION_LARGE_GROUPS',
+					'validate'  => 'int',
+					'type'      => 'number:1:9999',
 					'explain'   => true,
 				],
 			];
@@ -436,7 +444,7 @@ class main_listener implements EventSubscriberInterface
 			{
 				continue;
 			}
-			$this->parse_message($row['post_text'], $row['forum_id'], false);
+			$this->parse_message($row['post_text'], $row['forum_id'], false, $local_auth);
 
 			if (count($this->mention_data))
 			{
@@ -470,8 +478,11 @@ class main_listener implements EventSubscriberInterface
 	 * @param int $forum_id
 	 * @param bool $current
 	 */
-	private function parse_message($message, $forum_id, $current = true)
+	private function parse_message($message, $forum_id, $current = true, auth $local_auth = null)
 	{
+		if($local_auth === null) {
+			$local_auth = $this->auth;
+		}
 		$matches = [];
 		$mentions = [];
 		$this->mention_data = [];
@@ -512,6 +523,52 @@ class main_listener implements EventSubscriberInterface
 			$data = $this->getUserData($result, $mentions);
 			$this->db->sql_freeresult($result);
 			$this->handle_matches($data, $forum_id, $current);
+		}
+
+		if ($local_auth->acl_get('u_can_mention_groups') && preg_match_all('#\[smention g=([0-9]+)\]<\/s>(.*?)<e>\[\/smention\]#', $message, $matches, PREG_OFFSET_CAPTURE) !== 0)
+		{
+			// We are going to mention an group.
+			$data = [];
+
+			for ($i = 0; $i < count($matches[1]); $i++)
+			{
+				$data[] = $matches[1][$i][0];
+			}
+
+			if (!$local_auth->acl_get('u_can_mention_large_groups')) {
+				// User can only mention small groups. We need to check if the specified group is small.
+				$sql = 'SELECT COUNT(user_id) as cnt, group_id  
+				FROM ' . USER_GROUP_TABLE . ' g
+				WHERE ' . $this->db->sql_in_set('g.group_id', $data) . ' GROUP BY group_id';
+
+				$result = $this->db->sql_query($sql);
+				$data = [];
+				while ($row = $this->db->sql_fetchrow($result))
+				{
+					if ($row['cnt'] <= $this->config['simple_mention_large_groups'])
+					{
+						$data[] = $row['group_id'];
+					}
+				}
+				$this->db->sql_freeresult($result);
+			}
+
+			if (count($data) > 0)
+			{
+				$sql = 'SELECT u.user_id, u.username, u.user_permissions, u.user_type
+				FROM ' . USERS_TABLE . ' u, ' . USER_GROUP_TABLE . ' ug, ' . GROUPS_TABLE . ' g 
+				WHERE 
+						g.group_id = ug.group_id
+						AND g.group_type <> ' . GROUP_HIDDEN . '
+						AND ' . $this->db->sql_in_set('g.group_name', ['GUESTS', 'BOTS'], true) . '
+						AND u.user_id = ug.user_id 
+						AND ' . $this->db->sql_in_set('ug.group_id', $data);
+				$result = $this->db->sql_query($sql);
+				$data = $this->getUserData($result, $mentions);
+
+				$this->db->sql_freeresult($result);
+				$this->handle_matches($data, $forum_id, $current);
+			}
 		}
 	}
 

@@ -10,18 +10,18 @@
 
 namespace paul999\mention\migrations;
 
-class add_config2 extends \phpbb\db\migration\migration
+class install_permission2 extends \phpbb\db\migration\migration
 {
 	static public function depends_on()
 	{
-		return array('\paul999\mention\migrations\add_config');
+		return array('\phpbb\db\migration\data\v31x\v314');
 	}
 
 	public function update_data()
 	{
-		return [
-			['config.add', ['simple_mention_maxresults', '50', false]],
-			['config.add', ['simple_mention_large_groups', '50', false]],
-		];
+		return array(
+			array('permission.add', array('u_can_mention_groups')),
+			array('permission.add', array('u_can_mention_large_groups')),
+		);
 	}
 }

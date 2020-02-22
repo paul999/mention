@@ -19,6 +19,8 @@ class version_200 extends \phpbb\db\migration\migration
 			'\paul999\mention\migrations\version_100rc2',
 			'\paul999\mention\migrations\add_config',
 			'\paul999\mention\migrations\add_config2',
+			'\paul999\mention\migrations\install_permission2',
+			'\paul999\mention\migrations\install_role2',
 			'\phpbb\db\migration\data\v330\v330',
 		);
 	}

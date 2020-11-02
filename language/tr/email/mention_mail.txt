@@ -1,0 +1,10 @@
+Subject: Bir başlıkta sizden bahsedildi
+
+Merhaba,
+
+Az evvel {TOPIC_TITLE} başlığında {AUTHOR_NAME} mesajında sizden bahsetti.
+
+Bahsedildiğiniz mesaja gitmek için aşağıdaki bağlantıya tıklayın:
+{U_LINK_TO_TOPIC}
+
+{EMAIL_SIG}

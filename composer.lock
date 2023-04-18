@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "06b54f83104697b87bedd6dfa4dc8723",
+    "content-hash": "acfede89af5d11f9f7aae4969e0cc0e1",
     "packages": [],
     "packages-dev": [
         {
@@ -58,6 +58,9 @@
                 "task",
                 "tool"
             ],
+            "support": {
+                "source": "https://github.com/phingofficial/phing/tree/2.4.14"
+            },
             "time": "2012-11-29T21:23:47+00:00"
         }
     ],
@@ -67,7 +70,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "~7.1"
+        "php": "~7.1 || ~8.0"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
 }

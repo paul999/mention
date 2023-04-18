@@ -41,6 +41,8 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge(
 	$lang, array(
 		'ACL_U_CAN_MENTION'      => 'Saab kasutada mainimiste süsteemi',
+		'ACL_U_CAN_MENTION_GROUPS'	=> 'Can mention groups',
+		'ACL_U_CAN_MENTION_LARGE_GROUPS'	=> 'Can mention large groups (See configuration for large group settings)'
 
 	)
 );

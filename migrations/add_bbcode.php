@@ -10,7 +10,6 @@
 
 namespace paul999\mention\migrations;
 
-use paul999\mention\core\bbcodes_installer;
 use phpbb\db\migration\container_aware_migration;
 
 class add_bbcode extends container_aware_migration
@@ -28,14 +27,10 @@ class add_bbcode extends container_aware_migration
 	}
 	public function install_bbcodes()
 	{
-		$install = new bbcodes_installer($this->db, $this->container->get('request'), $this->container->get('user'), $this->phpbb_root_path, $this->php_ext);
-		$install->install_bbcodes([
-			'mention' => [
-				'display_on_posting'	=> false,
-				'bbcode_match'		    => '[mention]{TEXT}[/mention]',
-				'bbcode_tpl'		    => '<em class="mention">@{TEXT}</em>',
-			],
-		]);
-
+		// Removed on purpose. Starting with version 2.0 the old BBCode is no longer used.
+		// The old BBCode is (On purpose) never removed, to keep it working.
+		// For new installations: There is no mention BBCode yet, and adding it is no longer needed.
+		// However, we can't remove it in a later migration as that will break old installs.
+		// Migration on purpose not removed, but just made empty to keep backwards compatibility.
 	}
 }

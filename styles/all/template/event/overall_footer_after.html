@@ -1,0 +1,24 @@
+<script>
+    $(document).ready(function () {
+        $(".mention").on('click', function() {       
+            let attrU = $(this).attr('u');
+            let attrG = $(this).attr('g');
+            let link = '';
+            // check if user id iset
+            if(attrU != '')
+            {
+                link = './memberlist.php?mode=viewprofile&u=' + attrU;
+            }
+            // check if group id isset
+            else if(attrG != '')
+            {
+                link = './memberlist.php?mode=group&g=' + attrG;
+            }
+            // if link isset, open link in new window
+            if(link != '')
+            {
+                window.open(link, "_blank");
+            }
+        });
+    });
+</script>

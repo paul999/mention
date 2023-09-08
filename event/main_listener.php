@@ -121,8 +121,8 @@ class main_listener implements EventSubscriberInterface
 	{
 		$configurator = $event['configurator'];
 		$configurator->BBCodes->addCustom(
-			'[smention u={NUMBER?} g={NUMBER?}]{TEXT}[/smention]',
-			'<em class="mention">@{TEXT}</em>'
+			'[smention u={NUMBER1?} g={NUMBER2?}]{TEXT}[/smention]',
+			'<em u="{NUMBER1}" g="{NUMBER2}" class="mention">@{TEXT}</em>'
 		);
 	}
 
@@ -165,7 +165,7 @@ class main_listener implements EventSubscriberInterface
 		if ($s_quick_reply)
 		{
 			$this->template->assign_vars([
-				'UA_AJAX_MENTION_URL'    => $this->helper->route('paul999_mention_controller'),
+				'U_AJAX_MENTION_URL'    => $this->helper->route('paul999_mention_controller'),
 			]);
 		}
 	}

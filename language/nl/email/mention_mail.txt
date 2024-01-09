@@ -1,0 +1,10 @@
+Subject: You have been mentioned
+
+Hallo,
+
+Je bent zojuist genoemd door "{AUTHOR_NAME} in "{TOPIC_TITLE}" op "{SITENAME}".
+
+Gebruik deze link om het bericht te bekijken waarin u werd genoemd:
+{U_LINK_TO_TOPIC}
+
+{EMAIL_SIG}

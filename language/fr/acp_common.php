@@ -45,8 +45,8 @@ $lang = array_merge($lang, array(
 	'MENTION_COLOR'                 => 'Couleur de la mention',
 	'MENTION_COLOR_EXPLAIN'         => 'Permet de définir la couleur utilisée pour mentionner l’utilisateur dans le message. Les valeurs acceptées doivent être au format HEXADÉCIMAL.',
 	'MENTION_COLOR_INVALID'         => 'La couleur sélectionnée pour mentionner (%s) est incorrecte. Merci de sélectionner une couleur au format HEXADÉCIMAL, sans le caractère #.',
-	'MENTION_MAX_RESULTS'			=> 'Simple mention max results',
-	'MENTION_MAX_RESULTS_EXPLAIN'	=> 'The maximum number of users show in the dropdown. On larger boards you might want to decrease this value',
-	'MENTION_LARGE_GROUPS'			=> 'Mention large group size',
-	'MENTION_LARGE_GROUPS_EXPLAIN'	=> 'If the group has more members as the specified number, the “Can mention large groups” permission is required.'
+	'MENTION_MAX_RESULTS'			=> 'Nombre max de résultats Simple mention',
+	'MENTION_MAX_RESULTS_EXPLAIN'	=> 'Nombre maximum d’utilisateurs à afficher dans le menu déroulant. Pour les forums volumineux, il est conseillé de baisser cette valeur.',
+	'MENTION_LARGE_GROUPS'			=> 'Taille pour mentionner les grands groupes',
+	'MENTION_LARGE_GROUPS_EXPLAIN'	=> 'Si le groupe a plus de membres que cette valeur, la permission “Peut mentionner de grands groupes” sera nécessaire.'
 ));

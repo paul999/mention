@@ -40,8 +40,8 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 		'ACL_U_CAN_MENTION'      => 'Peut mentionner les utilisateurs.',
-		'ACL_U_CAN_MENTION_GROUPS'	=> 'Can mention groups',
-		'ACL_U_CAN_MENTION_LARGE_GROUPS'	=> 'Can mention large groups (See configuration for large group settings)'
+		'ACL_U_CAN_MENTION_GROUPS'	=> 'Peut mentionner les groupes',
+		'ACL_U_CAN_MENTION_LARGE_GROUPS'	=> 'Peut mentionner de grands groupes (Voir la configuration pour le paramétrage des grands groupes)'
 
 	)
 );

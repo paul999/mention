@@ -19,6 +19,10 @@ $(document).ready(function () {
                 return item.original.value;
             },
 
+            noMatchTemplate: function () {
+                return (typeof SIMPLE_MENTION_NO_MATCH_FOUND === 'undefined') ? 'No match found' : SIMPLE_MENTION_NO_MATCH_FOUND;
+            },
+
             selectTemplate: function (item) {
                 if (item.original.type === 'user') {
                     return '[smention u=' + item.original.user_id + ']' + item.original.value + '[/smention]';

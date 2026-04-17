@@ -124,6 +124,10 @@ $(document).ready(function () {
             },
 
             selectTemplate: function (item) {
+                if (!item || !item.original) {
+                    return '';
+                }
+
                 if (item.original.type === 'user') {
                     return '[smention u=' + item.original.user_id + ']' + item.original.value + '[/smention]';
                 }

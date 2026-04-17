@@ -111,11 +111,11 @@ $(document).ready(function () {
     });
 
     tribute = new Tribute({
+        noMatchTemplate: function () {
+            return '<li>' + SIMPLE_MENTION_NO_MATCH + '</li>';
+        },
         collection: [{
             trigger: '@',
-            noMatchTemplate: function () {
-                return '<li>' + SIMPLE_MENTION_NO_MATCH + '</li>';
-            },
             menuItemTemplate: function (item) {
                 if (item.original.type === 'group') {
                     return item.original.value +  SIMPLE_MENTION_GROUP_NAME.replace('{CNT}', item.original.cnt) ;

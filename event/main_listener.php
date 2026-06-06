@@ -121,9 +121,16 @@ class main_listener implements EventSubscriberInterface
 	{
 		$configurator = $event['configurator'];
 		$configurator->BBCodes->addCustom(
-			'[smention u={NUMBER?} g={NUMBER?}]{TEXT}[/smention]',
-			'<em class="mention">@{TEXT}</em>'
-		);
+            '[smention u={NUMBER?} g={NUMBER?}]{TEXT}[/smention]',
+            '<xsl:choose>
+                <xsl:when test="@u">
+                    <a href="./memberlist.php?mode=viewprofile&u={@u}"><span class="mention">@{TEXT}</span></a>
+                </xsl:when>
+                <xsl:when test="@g">
+                    <a href="./memberlist.php?mode=group&g={@g}"><span class="mention">@{TEXT}</span></a>
+                </xsl:when>
+                <xsl:otherwise><span class="mention">@{TEXT}</span></xsl:otherwise>
+            </xsl:choose>');
 	}
 
 	public function add_permission($event)

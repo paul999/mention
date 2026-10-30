@@ -94,7 +94,20 @@
 
 		<exec command="git archive ${archive-version} --format zip --output ${build-directory}/checkout/${archive-version}.zip"
 			  checkreturn="true" />
-		<unzip file="${build-directory}/checkout/${archive-version}.zip" todir="${package-directory}" />
+		<unzip file="${build-directory}/checkout/${archive-version}.zip" todir="${build-directory}/checkout/${archive-version}" />
+		<if>
+			<available file="${build-directory}/checkout/${archive-version}/${vendor-name}/${extension-name}/composer.json" />
+			<then>
+				<copy todir="${package-directory}">
+					<fileset dir="${build-directory}/checkout/${archive-version}/${vendor-name}/${extension-name}" />
+				</copy>
+			</then>
+			<else>
+				<copy todir="${package-directory}">
+					<fileset dir="${build-directory}/checkout/${archive-version}" />
+				</copy>
+			</else>
+		</if>
 	</target>
 
 	<!--

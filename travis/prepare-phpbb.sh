@@ -15,7 +15,8 @@ BRANCH=$1
 
 # Copy extension to a temp folder
 mkdir ../../tmp
-cp -R . ../../tmp
+cp -R paul999/mention/. ../../tmp/
+cp -R travis ../../tmp/
 cd ../../
 
 # Clone phpBB

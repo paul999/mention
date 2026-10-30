@@ -1,0 +1,10 @@
+Subject: Je bent vermeld
+
+Hallo,
+
+Je bent zojuist vermeld door "{AUTHOR_NAME}" in "{TOPIC_TITLE}" op "{SITENAME}".
+
+Gebruik deze link om het bericht te bekijken waarin je bent vermeld:
+{U_LINK_TO_TOPIC}
+
+{EMAIL_SIG}
